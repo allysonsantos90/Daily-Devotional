@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 6 &middot; Daily Devotional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #0e0b07; --parchment: #f7f2e8; --warm: #f2ead8;
+  --gold: #b8860b; --gold-light: #d4a843; --gold-pale: #f0dfa0;
+  --rust: #7a2e1a; --sage: #3d5c35; --blue: #1a3a5c; --mid: #6b5a3e; --pale: #ede6d4;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--parchment); font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,242,232,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #d8cdb0; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.nav-brand { font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); cursor: pointer; }
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border: 1px solid transparent; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; }
+.nav-tab.active, .nav-tab:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,134,11,0.06); }
+.lang-switch { display: flex; gap: 6px; }
+.lang-btn { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 5px 12px; border: 1px solid #c8b888; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; }
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
+.page { display: none; padding-top: 56px; min-height: 100vh; }
+.page.active { display: block; }
+.lang-pt .en { display: none; }
+.lang-en .pt { display: none; }
+#page-devotional { background: var(--parchment); }
+.hero { text-align: center; padding: 72px 24px 56px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,134,11,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-ornament { font-family: 'Cormorant Garamond', serif; font-size: 72px; color: rgba(184,134,11,0.15); line-height: 1; margin-bottom: -8px; letter-spacing: -2px; }
+.hero-label { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 8vw, 80px); font-weight: 300; color: var(--ink); letter-spacing: -1px; line-height: 1; margin-bottom: 28px; }
+.hero-line { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 24px; }
+.hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(17px, 2.5vw, 21px); font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 560px; margin: 0 auto; }
+.content-wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; animation: fadeUp 0.7s 0.1s ease both; }
+.pillar { background: white; border: 1px solid #ddd3b8; padding: 20px 14px; text-align: center; border-radius: 3px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.pillar:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.pillar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+.pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--gold-pale); line-height: 1; margin-bottom: 4px; }
+.pillar-title { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.pillar-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--mid); line-height: 1.4; }
+.central-box { background: var(--ink); color: var(--parchment); padding: 36px 40px; margin-bottom: 40px; position: relative; animation: fadeUp 0.7s 0.2s ease both; }
+.central-box::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 120px; color: rgba(184,134,11,0.2); position: absolute; top: -10px; left: 20px; line-height: 1; pointer-events: none; }
+.central-box .box-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 14px; }
+.central-box p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; line-height: 1.7; color: #f0e8d0; position: relative; }
+.central-box strong { color: var(--gold-pale); font-weight: 600; }
+.section-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 20px; animation: fadeUp 0.7s 0.3s ease both; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; animation: fadeUp 0.7s 0.35s ease both; }
+.c-card { border-radius: 3px; overflow: hidden; }
+.c-card-head { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+.my-kingdom .c-card-head { background: var(--rust); }
+.gods-kingdom .c-card-head { background: var(--sage); }
+.c-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.c-card-head-text { color: white; }
+.c-card-head-text .c-role { font-family: 'Josefin Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 2px; }
+.c-card-head-text .c-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; }
+.c-card-body { background: white; border: 1px solid #ddd3b8; border-top: none; padding: 18px 20px; }
+.c-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.6; padding: 12px 14px; border-radius: 2px; margin-bottom: 14px; }
+.my-kingdom .c-quote { background: #fdf0ec; color: #5a1a08; border-left: 3px solid var(--rust); }
+.gods-kingdom .c-quote { background: #edf5ec; color: #1a3a18; border-left: 3px solid var(--sage); }
+.c-traits { list-style: none; }
+.c-traits li { font-size: 13.5px; padding: 5px 0 5px 20px; position: relative; color: var(--ink); border-bottom: 1px solid #f0e8d8; }
+.c-traits li:last-child { border-bottom: none; }
+.my-kingdom .c-traits li::before { content: '✗'; position: absolute; left: 0; color: var(--rust); font-size: 11px; top: 6px; }
+.gods-kingdom .c-traits li::before { content: '✓'; position: absolute; left: 0; color: var(--sage); font-size: 11px; top: 6px; }
+.c-verdict { margin-top: 14px; padding: 8px 14px; border-radius: 2px; font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
+.my-kingdom .c-verdict { background: #fde8e0; color: var(--rust); }
+.gods-kingdom .c-verdict { background: #e0f0e0; color: var(--sage); }
+.arrow-mid { text-align: center; margin: 4px 0 28px; animation: fadeUp 0.7s 0.4s ease both; }
+.arrow-mid span { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b0a080; display: block; margin-bottom: 4px; }
+.arrow-mid .arr { font-size: 20px; color: var(--gold); }
+.prayer-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; animation: fadeUp 0.7s 0.45s ease both; }
+.pt-card { padding: 22px 20px; border-radius: 3px; }
+.pt-card.mini-king { background: #fdf5ee; border: 1px solid #d4956a; }
+.pt-card.kingdom-heir { background: #eef4fd; border: 1px solid #5a80b0; }
+.pt-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.mini-king .pt-label { color: #a05020; }
+.kingdom-heir .pt-label { color: var(--blue); }
+.pt-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.mini-king .pt-title { color: #6a2810; }
+.kingdom-heir .pt-title { color: #102840; }
+.pt-items { font-size: 13.5px; line-height: 1.9; color: #444; }
+.grace-banner { background: linear-gradient(135deg, #c9922a 0%, #8a5a08 100%); padding: 32px 36px; border-radius: 3px; text-align: center; margin-bottom: 36px; animation: fadeUp 0.7s 0.5s ease both; }
+.grace-banner .gb-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.grace-banner p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: white; line-height: 1.7; }
+.bible-btn-wrap { text-align: center; margin-bottom: 20px; animation: fadeUp 0.7s 0.55s ease both; }
+.bible-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'Josefin Sans', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); background: white; border: 2px solid var(--gold); padding: 14px 32px; border-radius: 2px; cursor: pointer; transition: all 0.25s; box-shadow: 4px 4px 0 var(--gold-pale); }
+.bible-btn:hover { background: var(--gold); color: white; box-shadow: 4px 4px 0 #8a5a08; transform: translate(-1px, -1px); }
+.bible-btn .btn-icon { font-size: 18px; }
+.ref-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--mid); text-align: center; margin-top: 10px; }
+#page-bible { background: #faf6ee; }
+.bible-hero { background: var(--ink); padding: 64px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+.bible-hero::before { content: '✦'; font-size: 200px; color: rgba(184,134,11,0.06); position: absolute; top: -20px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+.bible-hero-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 14px; }
+.bible-hero h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 48px); font-weight: 300; color: white; margin-bottom: 12px; }
+.bible-hero-ref { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: rgba(255,255,255,0.5); }
+.bible-content { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+.passage-box { background: white; border: 1px solid #ddd3b8; border-radius: 3px; margin-bottom: 40px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.passage-head { background: var(--warm); border-bottom: 1px solid #ddd3b8; padding: 14px 28px; display: flex; align-items: center; gap: 10px; }
+.passage-head-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); }
+.passage-body { padding: 32px 36px; }
+.bible-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.9; color: var(--ink); margin-bottom: 18px; }
+.bible-text .verse-num { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; color: var(--gold); vertical-align: super; margin-right: 3px; letter-spacing: 0; }
+.direct-speech { font-style: italic; }
+.highlight-verse { background: linear-gradient(120deg, rgba(184,134,11,0.08) 0%, rgba(184,134,11,0.12) 100%); border-left: 3px solid var(--gold); padding: 14px 18px; border-radius: 0 3px 3px 0; margin: 8px 0; }
+.explanation { margin-bottom: 40px; }
+.exp-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid #ddd3b8; }
+.exp-subtitle { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.exp-block { margin-bottom: 28px; }
+.exp-block-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.exp-block-title .etag { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 2px; text-transform: uppercase; }
+.etag.context { background: #fff3cd; color: #7a5800; }
+.etag.disciples { background: #fde8e0; color: var(--rust); }
+.etag.kingdom { background: #e0f0e0; color: var(--sage); }
+.etag.meaning { background: #e8eef8; color: var(--blue); }
+.etag.connect { background: #f0e8f8; color: #5c2a5c; }
+.exp-body { font-family: 'Crimson Pro', serif; font-size: 17px; line-height: 1.8; color: #333; }
+.exp-body p { margin-bottom: 14px; }
+.exp-body p:last-child { margin-bottom: 0; }
+.insight-box { background: var(--warm); border: 1px solid #d8c898; border-radius: 3px; padding: 20px 24px; margin: 20px 0; }
+.insight-box .i-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.insight-box p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--mid); line-height: 1.7; }
+.back-btn-wrap { text-align: center; margin-top: 40px; }
+.back-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); background: transparent; border: 1px solid #c8b888; padding: 12px 28px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+.back-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,134,11,0.04); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.6s ease both; }
+@media (max-width: 600px) { .pillars { grid-template-columns: 1fr 1fr; } .compare, .prayer-types { grid-template-columns: 1fr; } .central-box { padding: 26px 22px; } .passage-body { padding: 22px 20px; } nav { padding: 0 14px; } }
+</style>
+</head>
+<body class="lang-pt">
+
+<nav>
+  <div class="nav-brand" onclick="window.location.href='index.html'">Daily Devotional</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('devotional')" id="tab-devotional">
+      <span class="pt">Devocional</span><span class="en">Devotional</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('bible')" id="tab-bible">
+      <span class="pt">Texto B&iacute;blico</span><span class="en">Bible Text</span>
+    </button>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('pt')">&#127463;&#127479; PT</button>
+    <button class="lang-btn" onclick="setLang('en')">&#127482;&#127480; EN</button>
+  </div>
+</nav>
+
+<!-- DEVOTIONAL PAGE -->
+<div id="page-devotional" class="page active">
+  <div class="hero">
+    <div class="hero-ornament">&#9813;</div>
+    <div class="hero-label">
+      <span class="pt">Devocional &middot; 6 de Maio</span>
+      <span class="en">Devotional &middot; May 6</span>
+    </div>
+    <h1>
+      <span class="pt">O Reino de Deus</span>
+      <span class="en">The Kingdom of God</span>
+    </h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">&ldquo;Venha o teu reino...&rdquo; Devo lembrar que Deus n&atilde;o me deu gra&ccedil;a para que o meu reino funcionasse, mas para me capturar para um reino melhor.</span>
+      <span class="en">&ldquo;Your kingdom come&hellip;&rdquo; I must remember that God didn&rsquo;t give me grace for my kingdom to work, but to capture me for a better kingdom.</span>
+    </p>
+  </div>
+
+  <div class="content-wrap">
+
+    <!-- 4 pillars -->
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title"><span class="pt">Poder</span><span class="en">Power</span></div>
+        <div class="pillar-desc"><span class="pt">O pecado nos faz querer controle e domínio sobre tudo</span><span class="en">Sin makes us crave control and dominion over everything</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title"><span class="pt">Posi&ccedil;&atilde;o</span><span class="en">Position</span></div>
+        <div class="pillar-desc"><span class="pt">Vivemos para ser os maiores, os mais importantes</span><span class="en">We live to be the greatest, the most important</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title"><span class="pt">Promin&ecirc;ncia</span><span class="en">Prominence</span></div>
+        <div class="pillar-desc"><span class="pt">Queremos ser reconhecidos, servidos e admirados</span><span class="en">We want to be recognized, served, and admired</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title"><span class="pt">Gra&ccedil;a</span><span class="en">Grace</span></div>
+        <div class="pillar-desc"><span class="pt">Deus nos captura para um reino infinitamente melhor</span><span class="en">God captures us for an infinitely better kingdom</span></div>
+      </div>
+    </div>
+
+    <!-- Central truth -->
+    <div class="central-box">
+      <div class="box-label"><span class="pt">A Verdade Central</span><span class="en">The Central Truth</span></div>
+      <p>
+        <span class="pt">Somos todos <strong>pequenos autosoberanos</strong> que querem que os <em>nossos</em> reinos venham. Mas Deus n&atilde;o nos deu gra&ccedil;a para fazer o nosso reino funcionar &mdash; Ele nos deu gra&ccedil;a para nos <strong>capturar para um reino muito melhor</strong>.</span>
+        <span class="en">We are all <strong>little self-sovereigns</strong> who want <em>our</em> kingdoms to come. But God did not give us grace to make our kingdom work &mdash; He gave us grace to <strong>capture us for a much better kingdom</strong>.</span>
+      </p>
+    </div>
+
+    <!-- Compare -->
+    <div class="section-label">
+      <span class="pt">Marcos 9:30&ndash;37 &middot; Dois reinos, duas vidas</span>
+      <span class="en">Mark 9:30&ndash;37 &middot; Two kingdoms, two lives</span>
+    </div>
+
+    <div class="compare">
+      <div class="c-card my-kingdom">
+        <div class="c-card-head">
+          <div class="c-icon">&#128081;</div>
+          <div class="c-card-head-text">
+            <div class="c-role"><span class="pt">Vivendo para mim mesmo</span><span class="en">Living for myself</span></div>
+            <div class="c-name"><span class="pt">Mini-Rei</span><span class="en">Mini-King</span></div>
+          </div>
+        </div>
+        <div class="c-card-body">
+          <div class="c-quote">
+            <span class="pt">&ldquo;Quem &eacute; o maior? Eu quero poder, posi&ccedil;&atilde;o e promin&ecirc;ncia no reino.&rdquo;</span>
+            <span class="en">&ldquo;Who is the greatest? I want power, position, and prominence in the kingdom.&rdquo;</span>
+          </div>
+          <ul class="c-traits">
+            <li><span class="pt">Adora ter controle sobre tudo</span><span class="en">Loves being in control of everything</span></li>
+            <li><span class="pt">Vive para conseguir o que quer</span><span class="en">Lives for getting his own way</span></li>
+            <li><span class="pt">Precisa ser servido e mimado</span><span class="en">Needs to be indulged and served</span></li>
+            <li><span class="pt">Tem um plano para todos ao seu redor</span><span class="en">Has a wonderful plan for everyone around him</span></li>
+          </ul>
+          <div class="c-verdict">
+            <span class="pt">&#10007; Mais semelhante aos discípulos do que diferente</span>
+            <span class="en">&#10007; More like the disciples than unlike them</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-card gods-kingdom">
+        <div class="c-card-head">
+          <div class="c-icon">&#9733;</div>
+          <div class="c-card-head-text">
+            <div class="c-role"><span class="pt">Capturado pela gra&ccedil;a</span><span class="en">Captured by grace</span></div>
+            <div class="c-name"><span class="pt">Servo do Reino</span><span class="en">Servant of the Kingdom</span></div>
+          </div>
+        </div>
+        <div class="c-card-body">
+          <div class="c-quote">
+            <span class="pt">&ldquo;Se algu&eacute;m quer ser o primeiro, que seja o &uacute;ltimo de todos e o servo de todos.&rdquo; (Mc 9:35)</span>
+            <span class="en">&ldquo;If anyone would be first, he must be last of all and servant of all.&rdquo; (Mk 9:35)</span>
+          </div>
+          <ul class="c-traits">
+            <li><span class="pt">Recebe o reino como dom, n&atilde;o como conquista</span><span class="en">Receives the kingdom as gift, not conquest</span></li>
+            <li><span class="pt">A vida real &eacute; encontrada quando a vontade de Deus &eacute; feita</span><span class="en">Real life is found when God&rsquo;s will is done</span></li>
+            <li><span class="pt">Serve os outros em vez de ser servido</span><span class="en">Serves others instead of being served</span></li>
+            <li><span class="pt">Vive para um reino infinitamente maior</span><span class="en">Lives for an infinitely greater kingdom</span></li>
+          </ul>
+          <div class="c-verdict">
+            <span class="pt">&#10003; Capturado para o reino de Deus</span>
+            <span class="en">&#10003; Captured for God&rsquo;s kingdom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-mid">
+      <span><span class="pt">O pecado revela o que o nosso cora&ccedil;&atilde;o realmente quer</span><span class="en">Sin reveals what our heart really wants</span></span>
+      <div class="arr">&#8595;</div>
+    </div>
+
+    <!-- Two types -->
+    <div class="prayer-types">
+      <div class="pt-card mini-king">
+        <div class="pt-label"><span class="pt">O Meu Reino</span><span class="en">My Kingdom</span></div>
+        <div class="pt-title"><span class="pt">"Venha a minha vontade"</span><span class="en">"My will be done"</span></div>
+        <div class="pt-items">
+          <span class="pt">Quero controle<br>Quero ser o maior<br>Tenho um plano para todos<br>A vida &eacute; sobre mim<br>Deus &eacute; um meio para meus fins</span>
+          <span class="en">I want control<br>I want to be the greatest<br>I have a plan for everyone<br>Life is about me<br>God is a means to my ends</span>
+        </div>
+      </div>
+      <div class="pt-card kingdom-heir">
+        <div class="pt-label"><span class="pt">O Reino de Deus</span><span class="en">God&rsquo;s Kingdom</span></div>
+        <div class="pt-title"><span class="pt">"Venha o teu reino"</span><span class="en">"Your kingdom come"</span></div>
+        <div class="pt-items">
+          <span class="pt">Recebo como dom do Pai<br>O maior &eacute; o servo de todos<br>A vida real &eacute; encontrada<br>quando Sua vontade &eacute; feita<br>A gra&ccedil;a me captura para isto</span>
+          <span class="en">Received as a gift from the Father<br>The greatest is servant of all<br>Real life is found<br>when His will is done<br>Grace captures me for this</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grace banner -->
+    <div class="grace-banner">
+      <div class="gb-label"><span class="pt">O Convite</span><span class="en">The Invitation</span></div>
+      <p>
+        <span class="pt">Por mais contraintuitivo que seja, a vida real s&oacute; &eacute; encontrada quando o Seu reino vem e a Sua vontade &eacute; feita &mdash; e &eacute; exatamente isso que a gra&ccedil;a nos recebe para experimentar.</span>
+        <span class="en">No matter how counterintuitive it is, real life is found only when his kingdom comes and his will is done &mdash; and that is exactly what grace welcomes you to.</span>
+      </p>
+    </div>
+
+    <div class="bible-btn-wrap">
+      <button class="bible-btn" onclick="showPage('bible')">
+        <span class="btn-icon">&#128214;</span>
+        <span class="pt">Ler o Texto B&iacute;blico Completo</span>
+        <span class="en">Read the Full Bible Passage</span>
+      </button>
+      <p class="ref-note">
+        <span class="pt">Marcos 9:30&ndash;37 &middot; Lucas 12:32 &middot; Mateus 13:44&ndash;50</span>
+        <span class="en">Mark 9:30&ndash;37 &middot; Luke 12:32 &middot; Matthew 13:44&ndash;50</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- BIBLE PAGE -->
+<div id="page-bible" class="page">
+  <div class="bible-hero">
+    <div class="bible-hero-label">
+      <span class="pt">Texto B&iacute;blico &amp; Explica&ccedil;&atilde;o</span>
+      <span class="en">Bible Text &amp; Explanation</span>
+    </div>
+    <h2>
+      <span class="pt">Marcos 9:30&ndash;37 &middot; Lucas 12:32</span>
+      <span class="en">Mark 9:30&ndash;37 &middot; Luke 12:32</span>
+    </h2>
+    <div class="bible-hero-ref">
+      <span class="pt">O maior ser&aacute; o servo de todos</span>
+      <span class="en">The greatest shall be servant of all</span>
+    </div>
+  </div>
+
+  <div class="bible-content">
+
+    <!-- Mark passage -->
+    <div class="passage-box fade-in">
+      <div class="passage-head">
+        <div class="passage-head-label">
+          <span class="pt">&#128214; Marcos 9:30&ndash;37 (NVI)</span>
+          <span class="en">&#128214; Mark 9:30&ndash;37 (ESV)</span>
+        </div>
+      </div>
+      <div class="passage-body">
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">30</span>Partiram dali e passaram pela Galileia. Jesus n&atilde;o queria que ningu&eacute;m soubesse disso, <span class="verse-num">31</span>pois estava ensinando os seus disc&iacute;pulos. Dizia-lhes: <span class="direct-speech">&ldquo;O Filho do Homem vai ser entregue nas m&atilde;os dos homens. Eles o matar&atilde;o, e tr&ecirc;s dias depois de morto, ele ressuscitar&aacute;.&rdquo;</span> <span class="verse-num">32</span>Mas eles n&atilde;o entendiam o que ele queria dizer e tinham medo de perguntar.</span>
+          <span class="en"><span class="verse-num">30</span>They went on from there and passed through Galilee. And he did not want anyone to know, <span class="verse-num">31</span>for he was teaching his disciples, saying to them, <span class="direct-speech">&ldquo;The Son of Man is going to be delivered into the hands of men, and they will kill him. And when he is killed, after three days he will rise.&rdquo;</span> <span class="verse-num">32</span>But they did not understand the saying, and were afraid to ask him.</span>
+        </div>
+        <div class="bible-text highlight-verse">
+          <span class="pt"><span class="verse-num">33</span>Chegaram a Cafarnaum. Quando estava dentro da casa, Jesus lhes perguntou: <span class="direct-speech">&ldquo;O que voc&ecirc;s discutiam pelo caminho?&rdquo;</span> <span class="verse-num">34</span>Mas eles ficaram em sil&ecirc;ncio, pois pelo caminho haviam discutido entre si quem era o maior.</span>
+          <span class="en"><span class="verse-num">33</span>And they came to Capernaum. And when he was in the house he asked them, <span class="direct-speech">&ldquo;What were you discussing on the way?&rdquo;</span> <span class="verse-num">34</span>But they kept silent, for on the way they had argued with one another about who was the greatest.</span>
+        </div>
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">35</span>Jesus sentou, chamou os doze e disse: <span class="direct-speech">&ldquo;Se algu&eacute;m quer ser o primeiro, que seja o &uacute;ltimo de todos e o servo de todos.&rdquo;</span> <span class="verse-num">36</span>Tomou uma crian&ccedil;a e a colocou no meio deles. Abra&ccedil;ando-a, <span class="verse-num">37</span>disse-lhes: <span class="direct-speech">&ldquo;Quem recebe uma dessas crian&ccedil;as em meu nome, a mim recebe; e quem me recebe, n&atilde;o recebe apenas a mim, mas tamb&eacute;m aquele que me enviou.&rdquo;</span></span>
+          <span class="en"><span class="verse-num">35</span>And he sat down and called the twelve. And he said to them, <span class="direct-speech">&ldquo;If anyone would be first, he must be last of all and servant of all.&rdquo;</span> <span class="verse-num">36</span>And he took a child and put him in the midst of them, and taking him in his arms, <span class="verse-num">37</span>he said to them, <span class="direct-speech">&ldquo;Whoever receives one such child in my name receives me, and whoever receives me, receives not me but him who sent me.&rdquo;</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mark explanation -->
+    <div class="explanation fade-in">
+      <div class="exp-title">
+        <span class="pt">Entendendo Marcos 9:30&ndash;37</span>
+        <span class="en">Understanding Mark 9:30&ndash;37</span>
+      </div>
+      <div class="exp-subtitle">
+        <span class="pt">A discuss&atilde;o mais vergonhosa da B&iacute;blia</span>
+        <span class="en">The most embarrassing argument in the Bible</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag context"><span class="pt">Contexto</span><span class="en">Context</span></span>
+          <span><span class="pt">A ironia chocante desta passagem</span><span class="en">The shocking irony of this passage</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Jesus acabou de anunciar pela segunda vez que seria entregue, morto e ressuscitaria. Era o momento mais solene e importante de Seu minist&eacute;rio. A resposta esperada dos disc&iacute;pulos seria luto, perguntas, confus&atilde;o &mdash; qualquer coisa menos o que aconteceu: uma briga sobre quem era o maior entre eles. A ironia &eacute; devastadora e reveladora.</span>
+            <span class="en">Jesus has just announced for the second time that he would be handed over, killed, and would rise again. It was the most solemn and important moment of his ministry. The expected response from the disciples would be grief, questions, confusion &mdash; anything but what happened: an argument about who was the greatest among them. The irony is devastating and revealing.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag disciples"><span class="pt">Vers&iacute;culo 34</span><span class="en">Verse 34</span></span>
+          <span><span class="pt">O sil&ecirc;ncio que condena</span><span class="en">The silence that condemns</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Quando Jesus pergunta o que discutiam, eles ficam em sil&ecirc;ncio. N&atilde;o porque n&atilde;o tinham resposta &mdash; mas porque sabiam que a resposta era vergonhosa. Este &eacute; um retrato honesto do cora&ccedil;&atilde;o humano: sabemos quando estamos errados, mas &eacute; humilhante admitir. O sil&ecirc;ncio dos disc&iacute;pulos &eacute; o sil&ecirc;ncio de todos n&oacute;s quando nossa auto-sobe&shy;rania &eacute; exposta.</span>
+            <span class="en">When Jesus asks what they were discussing, they fall silent. Not because they had no answer &mdash; but because they knew the answer was shameful. This is an honest portrait of the human heart: we know when we are wrong, but it is humbling to admit. The disciples&rsquo; silence is the silence of all of us when our self-sovereignty is exposed.</span>
+          </p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Ponto-chave</span><span class="en">Key insight</span></div>
+          <p>
+            <span class="pt">O pecado n&atilde;o &eacute; apenas fazer coisas ruins &mdash; &eacute; estar t&atilde;o absorto em si mesmo que a morte iminente do pr&oacute;prio Mestre n&atilde;o &eacute; suficiente para desviar nossa aten&ccedil;&atilde;o de n&oacute;s mesmos.</span>
+            <span class="en">Sin is not just doing bad things &mdash; it is being so absorbed in ourselves that the imminent death of our own Master is not enough to divert our attention from ourselves.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag kingdom"><span class="pt">Vers&iacute;culo 35</span><span class="en">Verse 35</span></span>
+          <span><span class="pt">&ldquo;O primeiro ser&aacute; o &uacute;ltimo&rdquo;</span><span class="en">&ldquo;The first shall be last&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Jesus n&atilde;o repreende os disc&iacute;pulos com ra&iacute;va. Ele senta &mdash; postura rabínica de ensino solene &mdash; e inverte completamente os valores do reino. No reino de Deus, o maior n&atilde;o &eacute; quem tem mais poder, mas quem mais serve. Isto n&atilde;o &eacute; apenas uma regra moral; &eacute; uma descri&ccedil;&atilde;o da natureza do pr&oacute;prio rei, que logo viria a dar Sua vida em servi&ccedil;o a todos.</span>
+            <span class="en">Jesus does not rebuke the disciples with anger. He sits down &mdash; a rabbinic posture of solemn teaching &mdash; and completely inverts the values of the kingdom. In God&rsquo;s kingdom, the greatest is not the one with the most power, but the one who serves most. This is not just a moral rule; it is a description of the nature of the King himself, who would soon give his life in service to all.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Luke passage -->
+    <div class="passage-box fade-in">
+      <div class="passage-head">
+        <div class="passage-head-label">
+          <span class="pt">&#128214; Lucas 12:32 (NVI)</span>
+          <span class="en">&#128214; Luke 12:32 (ESV)</span>
+        </div>
+      </div>
+      <div class="passage-body">
+        <div class="bible-text highlight-verse">
+          <span class="pt"><span class="verse-num">32</span><span class="direct-speech">&ldquo;N&atilde;o temas, pequeno rebanho, pois foi do agrado do vosso Pai dar-vos o reino.&rdquo;</span></span>
+          <span class="en"><span class="verse-num">32</span><span class="direct-speech">&ldquo;Fear not, little flock, for it is your Father&rsquo;s good pleasure to give you the kingdom.&rdquo;</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Luke explanation -->
+    <div class="explanation fade-in">
+      <div class="exp-title">
+        <span class="pt">Entendendo Lucas 12:32</span>
+        <span class="en">Understanding Luke 12:32</span>
+      </div>
+      <div class="exp-subtitle">
+        <span class="pt">A palavra mais libertadora que Jesus j&aacute; disse</span>
+        <span class="en">The most liberating words Jesus ever spoke</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag kingdom"><span class="pt">O Dom</span><span class="en">The Gift</span></span>
+          <span><span class="pt">&ldquo;Foi do agrado do Pai dar-vos o reino&rdquo;</span><span class="en">&ldquo;It is your Father&rsquo;s good pleasure to give you the kingdom&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Esta frase muda tudo. O reino n&atilde;o &eacute; algo que conquistamos com nosso poder, nossa posi&ccedil;&atilde;o ou nossa promin&ecirc;ncia. &Eacute; um dom dado pelo Pai com prazer &mdash; a palavra grega <em>eudokeo</em> significa literalmente &ldquo;achar boa a ideia&rdquo;, &ldquo;achar satisfa&ccedil;&atilde;o em dar.&rdquo; Deus n&atilde;o nos d&aacute; o reino relutantemente. Ele o d&aacute; com alegria.</span>
+            <span class="en">This sentence changes everything. The kingdom is not something we conquer with our power, position, or prominence. It is a gift given by the Father with pleasure &mdash; the Greek word <em>eudokeo</em> literally means &ldquo;to think it is a good idea,&rdquo; &ldquo;to find satisfaction in giving.&rdquo; God does not give us the kingdom reluctantly. He gives it with joy.</span>
+          </p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Conex&atilde;o com o devocional</span><span class="en">Connection to the devotional</span></div>
+          <p>
+            <span class="pt">Jesus diz: &ldquo;N&atilde;o vim exercer meu poder para fazer os seus pequenos reinos funcionarem, mas para receb&ecirc;-los, pela gra&ccedil;a, em um reino muito melhor.&rdquo; A gra&ccedil;a n&atilde;o nos deixa onde estamos &mdash; ela nos captura para algo infinitamente maior.</span>
+            <span class="en">Jesus says: &ldquo;I did not come to exercise my power to make your little kingdoms work, but to welcome you, by grace, into a much better kingdom.&rdquo; Grace does not leave us where we are &mdash; it captures us for something infinitely greater.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag connect"><span class="pt">Conex&atilde;o</span><span class="en">Connection</span></span>
+          <span><span class="pt">Como os dois textos se unem</span><span class="en">How the two texts come together</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Marcos 9 nos mostra o problema: somos todos mini-reis que querem poder, posi&ccedil;&atilde;o e promin&ecirc;ncia. Lucas 12:32 nos mostra a solu&ccedil;&atilde;o: n&atilde;o esfor&ccedil;o moral, mas um dom. O Pai tem prazer em dar o reino &agrave;queles que reconhecem que s&atilde;o um &ldquo;pequeno rebanho&rdquo; dependente &mdash; n&atilde;o conquistadores poderosos.</span>
+            <span class="en">Mark 9 shows us the problem: we are all mini-kings who want power, position, and prominence. Luke 12:32 shows us the solution: not moral effort, but a gift. The Father takes pleasure in giving the kingdom to those who recognize they are a dependent &ldquo;little flock&rdquo; &mdash; not powerful conquerors.</span>
+          </p>
+          <p>
+            <span class="pt">Por mais contraintuitivo que seja, a vida real s&oacute; &eacute; encontrada quando paramos de construir o nosso reino e come&ccedil;amos a receber o Dele.</span>
+            <span class="en">As counterintuitive as it is, real life is only found when we stop building our own kingdom and start receiving his.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-btn-wrap">
+      <button class="back-btn" onclick="showPage('devotional')">
+        &larr; <span class="pt">Voltar ao Devocional</span><span class="en">Back to Devotional</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    localStorage.setItem('dd-lang', lang);
+  }
+  const saved = localStorage.getItem('dd-lang');
+  if (saved) setLang(saved);
+</script>
+</body>
+</html>

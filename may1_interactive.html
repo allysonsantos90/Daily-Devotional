@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 1 · Daily Devotional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink:        #0d0a06;
+  --parchment:  #f6f1e6;
+  --warm:       #ede5ce;
+  --gold:       #b07d2a;
+  --gold-light: #d4a843;
+  --gold-faint: #f0e2b8;
+  --rust:       #7c2e18;
+  --sage:       #3d5c35;
+  --blue:       #1a3a5c;
+  --mid:        #6b5a3e;
+  --muted:      #a89070;
+  --border:     #ddd0b0;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: 'Crimson Pro', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.lang-pt .en { display: none !important; }
+.lang-en .pt { display: none !important; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 58px;
+  background: rgba(246,241,230,0.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 clamp(20px, 5vw, 60px);
+  justify-content: space-between;
+}
+
+.nav-left { display: flex; align-items: center; gap: 14px; }
+
+.nav-mark {
+  width: 30px; height: 30px;
+  border: 1.5px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px; color: var(--gold);
+  transform: rotate(45deg); flex-shrink: 0;
+  cursor: pointer; transition: background 0.2s;
+}
+.nav-mark:hover { background: rgba(176,125,42,0.08); }
+.nav-mark span { transform: rotate(-45deg); display: block; }
+
+.nav-home-link {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-home-link:hover { color: var(--gold); }
+
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid transparent; border-radius: 2px;
+  cursor: pointer; background: transparent; color: var(--mid);
+  transition: all 0.2s;
+}
+.nav-tab.active, .nav-tab:hover { border-color: var(--gold); color: var(--gold); background: rgba(176,125,42,0.06); }
+
+.nav-right { display: flex; gap: 6px; }
+.lang-btn {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 5px 12px;
+  border: 1px solid var(--border); border-radius: 2px;
+  background: transparent; color: var(--muted);
+  cursor: pointer; transition: all 0.2s;
+}
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
+.lang-btn:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+/* ── PAGES ── */
+.page { display: none; padding-top: 58px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ══════════════════════════════════════
+   DEVOTIONAL PAGE
+══════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 80px clamp(20px, 6vw, 80px) 90px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 45%, rgba(176,125,42,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-wm {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(180px, 38vw, 460px);
+  color: rgba(176,125,42,0.032);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.hero::before, .hero::after {
+  content: ''; position: absolute;
+  left: clamp(20px, 8vw, 100px); right: clamp(20px, 8vw, 100px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+.hero::before { top: 78px; }
+.hero::after  { bottom: 68px; }
+
+.hero-eyebrow {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 22px;
+  opacity: 0; animation: fadeUp 0.8s 0.1s ease forwards;
+  position: relative;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(54px, 10vw, 108px);
+  line-height: 0.88; letter-spacing: -2px;
+  color: var(--ink); margin-bottom: 34px;
+  opacity: 0; animation: fadeUp 0.9s 0.2s ease forwards;
+  position: relative;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+
+.hero-div {
+  display: flex; align-items: center; gap: 16px;
+  justify-content: center; margin-bottom: 30px;
+  opacity: 0; animation: fadeUp 0.8s 0.32s ease forwards; position: relative;
+}
+.hero-div-line { width: 48px; height: 1px; background: var(--gold-light); }
+.hero-div-gem  { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+
+.hero-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(16px, 2.1vw, 20px);
+  color: var(--mid); line-height: 1.75;
+  max-width: 520px; margin-bottom: 10px;
+  opacity: 0; animation: fadeUp 0.8s 0.42s ease forwards; position: relative;
+}
+.hero-ref {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 52px;
+  opacity: 0; animation: fadeUp 0.8s 0.5s ease forwards; position: relative;
+}
+.hero-scroll {
+  position: absolute; bottom: 26px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  opacity: 0; animation: fadeUp 1s 1.1s ease forwards;
+}
+.hero-scroll span {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+}
+.scroll-line {
+  width: 1px; height: 34px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.3;transform:scaleY(.8)} 50%{opacity:1;transform:scaleY(1)} }
+
+/* Content */
+.wrap {
+  max-width: 780px; margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 40px) 80px;
+  position: relative; z-index: 1;
+}
+
+/* Two pillars of God's agenda */
+.agenda-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-bottom: 44px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.agenda-card {
+  border-radius: 3px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+
+.agenda-head {
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 12px;
+}
+.agenda-card.reconciliation .agenda-head { background: var(--blue); }
+.agenda-card.transformation .agenda-head { background: var(--sage); }
+
+.agenda-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px; font-weight: 300;
+  color: rgba(255,255,255,0.25); line-height: 1;
+}
+.agenda-head-text { color: white; }
+.agenda-head-text .a-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  opacity: 0.7; margin-bottom: 3px;
+}
+.agenda-head-text .a-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600;
+}
+
+.agenda-body {
+  background: white; border: 1px solid var(--border); border-top: none;
+  padding: 20px 22px;
+}
+.agenda-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 14px;
+  line-height: 1.6; padding: 10px 13px;
+  border-radius: 2px; margin-bottom: 14px;
+}
+.reconciliation .agenda-verse { background: #edf0f8; border-left: 3px solid var(--blue); color: #102040; }
+.transformation .agenda-verse { background: #edf5ec; border-left: 3px solid var(--sage); color: #1a3a18; }
+
+.agenda-body ul { list-style: none; }
+.agenda-body ul li {
+  font-size: 13.5px; line-height: 1.5;
+  color: var(--ink); padding: 5px 0 5px 18px;
+  position: relative; border-bottom: 1px solid #f5ede0;
+}
+.agenda-body ul li:last-child { border-bottom: none; }
+.reconciliation ul li::before { content: '✦'; position: absolute; left: 0; color: var(--blue); font-size: 9px; top: 7px; }
+.transformation ul li::before { content: '✦'; position: absolute; left: 0; color: var(--sage); font-size: 9px; top: 7px; }
+
+/* Central truth box */
+.truth-box {
+  background: var(--ink); border-radius: 3px;
+  padding: 36px 40px; margin-bottom: 40px;
+  position: relative; overflow: hidden;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.truth-box::before {
+  content: '"';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 130px; color: rgba(176,125,42,0.15);
+  position: absolute; top: -15px; left: 18px;
+  line-height: 1; pointer-events: none;
+}
+.truth-box .tb-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 14px;
+}
+.truth-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 300;
+  line-height: 1.75; color: #f0e8d0; position: relative;
+}
+.truth-box strong { color: var(--gold-faint); font-weight: 600; }
+
+/* Comfort vs false comfort */
+.sec-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--muted); text-align: center;
+  margin-bottom: 18px;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.comfort-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 18px; margin-bottom: 36px;
+  animation: fadeUp 0.8s 0.35s ease both;
+}
+
+.comfort-card {
+  padding: 22px 20px; border-radius: 3px;
+}
+.comfort-card.false-c {
+  background: #fdf5ee; border: 1px solid #d4956a;
+}
+.comfort-card.true-c {
+  background: #edf0f8; border: 1px solid #8a9ec8;
+}
+.comfort-card .cc-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.false-c .cc-label { color: #a05020; }
+.true-c  .cc-label { color: var(--blue); }
+
+.comfort-card .cc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  margin-bottom: 12px; line-height: 1.2;
+}
+.false-c .cc-title { color: #6a2810; }
+.true-c  .cc-title { color: #102040; }
+
+.comfort-card .cc-items {
+  font-size: 13.5px; line-height: 1.85; color: #444;
+}
+
+/* Arrow */
+.arrow-row {
+  text-align: center; margin-bottom: 28px;
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.arrow-row span {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: #b0a080; display: block; margin-bottom: 4px;
+}
+.arrow-row .arr { font-size: 22px; color: var(--gold); }
+
+/* Grace + transformation banner */
+.banner {
+  background: linear-gradient(135deg, #c9922a 0%, #8a5a08 100%);
+  border-radius: 3px; padding: 30px 36px;
+  text-align: center; margin-bottom: 36px;
+  animation: fadeUp 0.8s 0.45s ease both;
+}
+.banner .b-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); margin-bottom: 12px;
+}
+.banner p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 19px;
+  color: white; line-height: 1.75;
+}
+
+/* Bible button */
+.bible-wrap {
+  text-align: center; margin-bottom: 16px;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.bible-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--ink); background: white;
+  border: 2px solid var(--gold);
+  padding: 14px 32px; border-radius: 2px;
+  cursor: pointer; transition: all 0.25s;
+  box-shadow: 4px 4px 0 var(--gold-faint);
+}
+.bible-btn:hover {
+  background: var(--gold); color: white;
+  box-shadow: 4px 4px 0 #8a5a08;
+  transform: translate(-1px, -1px);
+}
+.bible-btn .bi { font-size: 18px; }
+
+.ref-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 13px;
+  color: var(--mid); text-align: center; margin-top: 10px;
+}
+
+/* ══════════════════════════════════════
+   BIBLE PAGE
+══════════════════════════════════════ */
+#page-bible { background: #faf6ee; }
+
+.bible-hero {
+  background: var(--ink);
+  padding: 64px 24px 48px; text-align: center;
+  position: relative; overflow: hidden;
+}
+.bible-hero::before {
+  content: '✦';
+  font-size: 220px; color: rgba(176,125,42,0.05);
+  position: absolute; top: -20px; left: 50%;
+  transform: translateX(-50%); pointer-events: none;
+}
+.bh-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 5px; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 14px;
+}
+.bh-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 5vw, 44px); font-weight: 300;
+  color: white; margin-bottom: 10px; position: relative;
+}
+.bh-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 17px;
+  color: rgba(255,255,255,0.45);
+}
+
+.bible-wrap {
+  max-width: 740px; margin: 0 auto;
+  padding: 48px clamp(20px, 5vw, 40px) 80px;
+}
+
+.passage-box {
+  background: white; border: 1px solid var(--border);
+  border-radius: 3px; margin-bottom: 40px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.passage-head {
+  background: var(--warm); border-bottom: 1px solid var(--border);
+  padding: 13px 28px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--mid);
+}
+.passage-body { padding: 30px 34px; }
+
+.btext {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; line-height: 1.9;
+  color: var(--ink); margin-bottom: 16px;
+}
+.btext:last-child { margin-bottom: 0; }
+
+.vnum {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700; color: var(--gold);
+  vertical-align: super; margin-right: 3px;
+}
+
+.hl {
+  background: linear-gradient(120deg, rgba(176,125,42,0.08), rgba(176,125,42,0.13));
+  border-left: 3px solid var(--gold);
+  padding: 14px 18px; border-radius: 0 3px 3px 0; margin: 8px 0;
+}
+
+/* Explanation */
+.exp-section { margin-bottom: 44px; }
+
+.exp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px; font-weight: 600; color: var(--ink);
+  padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.exp-sub {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 24px;
+}
+
+.exp-block { margin-bottom: 28px; }
+
+.exp-block-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 600;
+  color: var(--ink); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+
+.etag {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 2px;
+}
+.etag.context  { background: #fff3cd; color: #7a5800; }
+.etag.part1    { background: #e8eef8; color: var(--blue); }
+.etag.part2    { background: #e8f5e8; color: var(--sage); }
+.etag.meaning  { background: #f8e8e0; color: var(--rust); }
+
+.exp-body {
+  font-family: 'Crimson Pro', serif;
+  font-size: 17px; line-height: 1.85; color: #333;
+}
+.exp-body p { margin-bottom: 14px; }
+.exp-body p:last-child { margin-bottom: 0; }
+
+.insight-box {
+  background: var(--warm); border: 1px solid #d8c898;
+  border-radius: 3px; padding: 18px 22px; margin: 18px 0;
+}
+.insight-box .i-label {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 8px;
+}
+.insight-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 17px;
+  color: var(--mid); line-height: 1.7;
+}
+
+.back-wrap { text-align: center; margin-top: 44px; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--mid); background: transparent;
+  border: 1px solid var(--border);
+  padding: 12px 28px; border-radius: 2px;
+  cursor: pointer; transition: all 0.2s;
+}
+.back-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(176,125,42,0.04); }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .agenda-grid, .comfort-grid { grid-template-columns: 1fr; }
+  .truth-box { padding: 26px 22px; }
+  .passage-body { padding: 22px 20px; }
+  nav { padding: 0 14px; }
+  .nav-tabs .nav-tab { padding: 6px 10px; font-size: 9px; }
+}
+@media (max-width: 440px) {
+  .nav-home-link { display: none; }
+}
+</style>
+</head>
+<body class="lang-en">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-mark" onclick="window.location.href='index.html'"><span>✦</span></div>
+    <a class="nav-home-link" href="index.html">Daily Devotional</a>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('devotional')" id="tab-devotional">
+      <span class="pt">Devocional</span><span class="en">Devotional</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('bible')" id="tab-bible">
+      <span class="pt">Texto Bíblico</span><span class="en">Bible Text</span>
+    </button>
+  </div>
+  <div class="nav-right">
+    <button class="lang-btn" onclick="setLang('pt')">🇧🇷 PT</button>
+    <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+  </div>
+</nav>
+
+<!-- ══ DEVOTIONAL PAGE ══ -->
+<div id="page-devotional" class="page active">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-wm">✦</div>
+
+    <p class="hero-eyebrow">
+      <span class="pt">Devocional · 1 de Maio</span>
+      <span class="en">Devotional · May 1</span>
+    </p>
+    <h1 class="hero-title">
+      <span class="pt">A Cruz &<br><em>A Graça</em></span>
+      <span class="en">The Cross &<br><em>The Grace</em></span>
+    </h1>
+    <div class="hero-div">
+      <div class="hero-div-line"></div>
+      <div class="hero-div-gem"></div>
+      <div class="hero-div-line"></div>
+    </div>
+    <p class="hero-verse">
+      <span class="pt">"Jesus te ordena que pegues a tua cruz e O sigas, e então Ele te dá a força para carregar o fardo."</span>
+      <span class="en">"Jesus commands you to take up your cross and follow him, and then he gives you the strength to carry the load."</span>
+    </p>
+    <p class="hero-ref">2 Thessalonians 2:16–17</p>
+    <div class="hero-scroll">
+      <span><span class="pt">explorar</span><span class="en">explore</span></span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- Two pillars -->
+    <div class="agenda-grid">
+      <div class="agenda-card reconciliation">
+        <div class="agenda-head">
+          <div class="agenda-num">01</div>
+          <div class="agenda-head-text">
+            <div class="a-label"><span class="pt">Primeira Obra</span><span class="en">First Work</span></div>
+            <div class="a-title"><span class="pt">Reconciliação</span><span class="en">Reconciliation</span></div>
+          </div>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-verse">
+            <span class="pt">"Consolação eterna e boa esperança"</span>
+            <span class="en">"Eternal comfort and good hope"</span>
+          </div>
+          <ul>
+            <li><span class="pt">Não tememos mais a ira de Deus</span><span class="en">No longer fear God's wrath</span></li>
+            <li><span class="pt">Não precisamos nos esforçar para ser aceitos</span><span class="en">No need to measure up for acceptance</span></li>
+            <li><span class="pt">Não nos escondemos em culpa ou vergonha</span><span class="en">No hiding in guilt or shame</span></li>
+            <li><span class="pt">Somos de Deus para sempre</span><span class="en">We are God's forever and ever</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="agenda-card transformation">
+        <div class="agenda-head">
+          <div class="agenda-num">02</div>
+          <div class="agenda-head-text">
+            <div class="a-label"><span class="pt">Segunda Obra</span><span class="en">Second Work</span></div>
+            <div class="a-title"><span class="pt">Transformação</span><span class="en">Transformation</span></div>
+          </div>
+        </div>
+        <div class="agenda-body">
+          <div class="agenda-verse">
+            <span class="pt">"Fortaleça em toda boa obra e palavra"</span>
+            <span class="en">"Establish them in every good work and word"</span>
+          </div>
+          <ul>
+            <li><span class="pt">Deus trabalha conforto vertical em nós</span><span class="en">God works real vertical comfort in us</span></li>
+            <li><span class="pt">Para não buscarmos conforto horizontal</span><span class="en">So we won't seek comfort horizontally</span></li>
+            <li><span class="pt">Transforma nosso coração progressivamente</span><span class="en">Progressively transforms our hearts</span></li>
+            <li><span class="pt">Somos mudados pela graça, todo dia</span><span class="en">We are changed by grace, every day</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Central truth -->
+    <div class="truth-box">
+      <div class="tb-label">
+        <span class="pt">A Agenda de Deus</span><span class="en">God's Agenda</span>
+      </div>
+      <p>
+        <span class="pt">Deus não promete realizar nossos sonhos ou nos livrar do sofrimento. Ele promete algo mais profundo: <strong>reconciliação</strong> — acolhimento eterno apesar do nosso pecado — e <strong>transformação</strong> — mudança progressiva pelo poder da graça.</span>
+        <span class="en">God doesn't promise to fulfill our dreams or protect us from suffering. He promises something deeper: <strong>reconciliation</strong> — eternal welcome despite our sin — and <strong>transformation</strong> — progressive change by the power of grace.</span>
+      </p>
+    </div>
+
+    <!-- Comfort section -->
+    <div class="sec-label">
+      <span class="pt">O Conforto Verdadeiro vs. O Conforto Falso</span>
+      <span class="en">True Comfort vs. False Comfort</span>
+    </div>
+
+    <div class="comfort-grid">
+      <div class="comfort-card false-c">
+        <div class="cc-label"><span class="pt">O que Deus NÃO prometeu</span><span class="en">What God did NOT promise</span></div>
+        <div class="cc-title"><span class="pt">Conforto horizontal</span><span class="en">Horizontal comfort</span></div>
+        <div class="cc-items">
+          <span class="pt">
+            Realizar suas esperanças e sonhos<br>
+            Pagar todas as suas contas<br>
+            Fazer as pessoas ao redor te amarem<br>
+            Garantir que você escape do sofrimento
+          </span>
+          <span class="en">
+            Fulfilling your hopes and dreams<br>
+            Making sure your bills are paid<br>
+            Making people around you like you<br>
+            Protecting you from suffering
+          </span>
+        </div>
+      </div>
+      <div class="comfort-card true-c">
+        <div class="cc-label"><span class="pt">O que Deus PROMETEU</span><span class="en">What God DID promise</span></div>
+        <div class="cc-title"><span class="pt">Conforto vertical</span><span class="en">Vertical comfort</span></div>
+        <div class="cc-items">
+          <span class="pt">
+            Acolhimento eterno apesar do seu pecado<br>
+            Relacionamento com o Deus Todo-Poderoso<br>
+            Sua presença que jamais se retira<br>
+            Transformação progressiva pela graça
+          </span>
+          <span class="en">
+            Eternal welcome despite your sin<br>
+            Relationship with the Almighty God<br>
+            His presence that never withdraws<br>
+            Progressive transformation by grace
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-row">
+      <span><span class="pt">O resultado é</span><span class="en">The result is</span></span>
+      <div class="arr">↓</div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <div class="b-label"><span class="pt">O Convite</span><span class="en">The Invitation</span></div>
+      <p>
+        <span class="pt">Hoje, descanse no conforto que Ele oferece e responda ao Seu chamado gracioso. Somos Seus pela graça — e estamos sendo transformados — tudo por causa do Seu zelo reconciliador e transformador.</span>
+        <span class="en">Today, bask in the comfort he gives and respond to his gracious call. We are his by grace — and are being changed by grace — all because of his reconciling and transforming zeal.</span>
+      </p>
+    </div>
+
+    <!-- Bible button -->
+    <div class="bible-wrap">
+      <button class="bible-btn" onclick="showPage('bible')">
+        <span class="bi">📖</span>
+        <span class="pt">Ler o Texto Bíblico Completo</span>
+        <span class="en">Read the Full Bible Passage</span>
+      </button>
+      <p class="ref-note">
+        <span class="pt">2 Tessalonicenses 2:16–17 · 2 Coríntios 5:14–21</span>
+        <span class="en">2 Thessalonians 2:16–17 · 2 Corinthians 5:14–21</span>
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ BIBLE PAGE ══ -->
+<div id="page-bible" class="page">
+
+  <div class="bible-hero">
+    <div class="bh-label">
+      <span class="pt">Texto Bíblico & Explicação</span>
+      <span class="en">Bible Text & Explanation</span>
+    </div>
+    <h2 class="bh-title">
+      <span class="pt">2 Tessalonicenses 2:16–17 · 2 Coríntios 5:14–21</span>
+      <span class="en">2 Thessalonians 2:16–17 · 2 Corinthians 5:14–21</span>
+    </h2>
+    <div class="bh-sub">
+      <span class="pt">Reconciliação e transformação pela graça</span>
+      <span class="en">Reconciliation and transformation by grace</span>
+    </div>
+  </div>
+
+  <div class="bible-wrap">
+
+    <!-- 2 Thessalonians passage -->
+    <div class="passage-box">
+      <div class="passage-head">
+        <span class="pt">📖 2 Tessalonicenses 2:16–17 (NVI)</span>
+        <span class="en">📖 2 Thessalonians 2:16–17 (ESV)</span>
+      </div>
+      <div class="passage-body">
+        <div class="btext hl">
+          <span class="pt">
+            <span class="vnum">16</span>Ora, o nosso Senhor Jesus Cristo mesmo, e nosso Deus e Pai, que nos amou e pela graça nos deu consolação eterna e boa esperança, <span class="vnum">17</span>console o vosso coração e o fortaleça em toda boa obra e palavra.
+          </span>
+          <span class="en">
+            <span class="vnum">16</span>Now may our Lord Jesus Christ himself, and God our Father, who loved us and gave us eternal comfort and good hope through grace, <span class="vnum">17</span>comfort your hearts and establish them in every good work and word.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 Thess explanation -->
+    <div class="exp-section">
+      <div class="exp-title">
+        <span class="pt">Entendendo 2 Tessalonicenses 2:16–17</span>
+        <span class="en">Understanding 2 Thessalonians 2:16–17</span>
+      </div>
+      <div class="exp-sub">
+        <span class="pt">As duas obras de Deus na sua vida</span>
+        <span class="en">The two works of God in your life</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag context"><span class="pt">Contexto</span><span class="en">Context</span></span>
+          <span><span class="pt">A carta de Paulo aos Tessalonicenses</span><span class="en">Paul's letter to the Thessalonians</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Paulo escreveu esta carta a uma jovem comunidade cristã em Tessalônica que enfrentava perseguição e confusão sobre o fim dos tempos. Em meio ao sofrimento, Paulo não oferece respostas fáceis — ele aponta para o caráter de Deus: um Pai que amou, que deu, e que continua agindo.</span>
+            <span class="en">Paul wrote this letter to a young Christian community in Thessalonica facing persecution and confusion about the end times. Amid suffering, Paul doesn't offer easy answers — he points to the character of God: a Father who loved, who gave, and who continues to act.</span>
+          </p>
+          <p>
+            <span class="pt">A bênção do versículo 16–17 é simultaneamente uma declaração teológica e uma oração pastoral. Paulo descreve o que Deus já fez ("nos amou", "nos deu") e então ora para que essa realidade se torne cada vez mais experienciada no coração dos crentes.</span>
+            <span class="en">The blessing of verses 16–17 is simultaneously a theological declaration and a pastoral prayer. Paul describes what God has already done ("loved us," "gave us") and then prays that this reality would be increasingly experienced in believers' hearts.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag part1"><span class="pt">Parte 1</span><span class="en">Part 1</span></span>
+          <span><span class="pt">"Consolação eterna e boa esperança"</span><span class="en">"Eternal comfort and good hope"</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">O termo grego para "consolação eterna" (παράκλησιν αἰώνιον) descreve um conforto que não depende das circunstâncias. É "eterno" — não temporário como o alívio de um problema resolvido, mas permanente porque está baseado na obra consumada de Cristo.</span>
+            <span class="en">The Greek term for "eternal comfort" (παράκλησιν αἰώνιον) describes a comfort that doesn't depend on circumstances. It is "eternal" — not temporary like the relief of a solved problem, but permanent because it is based on the finished work of Christ.</span>
+          </p>
+          <p>
+            <span class="pt">Essa é a obra da reconciliação: apesar do nosso pecado, Jesus cumpriu todos os requisitos de Deus que nós falhamos em cumprir. Nossa posição diante de Deus não se baseia no nosso desempenho, mas no registro perfeito do Filho.</span>
+            <span class="en">This is the work of reconciliation: despite our sin, Jesus fulfilled all of God's requirements that we failed to meet. Our standing before God is not based on our performance, but on the perfect record of the Son.</span>
+          </p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Ponto-chave</span><span class="en">Key insight</span></div>
+          <p>
+            <span class="pt">Você não precisa mais temer a ira de Deus. Não precisa se esforçar para alcançar a Sua aceitação. Não precisa se esconder em culpa ou vergonha. Você é de Deus para sempre — e isso jamais muda.</span>
+            <span class="en">You no longer have to fear God's wrath. You no longer have to measure up to achieve his acceptance. You no longer have to hide in guilt or shame. You are God's forever — and that never changes.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag part2"><span class="pt">Parte 2</span><span class="en">Part 2</span></span>
+          <span><span class="pt">"Fortaleça em toda boa obra e palavra"</span><span class="en">"Establish them in every good work and word"</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">"Estabelecer" (στηρίξαι) significa firmar, consolidar, tornar estável. Paulo ora para que o coração dos crentes seja firmado — não em suas próprias forças, mas no poder transformador da graça de Deus. Essa é a segunda obra: transformação.</span>
+            <span class="en">"Establish" (στηρίξαι) means to firm up, consolidate, make stable. Paul prays that believers' hearts would be established — not in their own strength, but in the transforming power of God's grace. This is the second work: transformation.</span>
+          </p>
+          <p>
+            <span class="pt">O conforto de Deus não significa que a maneira como vivemos não faz diferença. Pela graça, Ele está ativamente trabalhando em nós para que vivamos progressivamente como Ele escolheu que vivêssemos. Reconciliação e transformação caminham juntas — uma não existe sem a outra.</span>
+            <span class="en">God's comfort doesn't mean that the way we live our lives makes no difference. By grace, he is actively working in us so that we progressively live as he chose us to live. Reconciliation and transformation go together — one doesn't exist without the other.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 Corinthians passage -->
+    <div class="passage-box">
+      <div class="passage-head">
+        <span class="pt">📖 2 Coríntios 5:14–21 (NVI)</span>
+        <span class="en">📖 2 Corinthians 5:14–21 (ESV)</span>
+      </div>
+      <div class="passage-body">
+        <div class="btext">
+          <span class="pt">
+            <span class="vnum">14</span>Pois o amor de Cristo nos constrange, porque estamos convictos de que um morreu por todos, e portanto todos morreram. <span class="vnum">15</span>E ele morreu por todos, para que os que vivem não vivam mais para si mesmos, mas para aquele que por eles morreu e ressuscitou.
+          </span>
+          <span class="en">
+            <span class="vnum">14</span>For the love of Christ controls us, because we have concluded this: that one has died for all, therefore all have died; <span class="vnum">15</span>and he died for all, that those who live might no longer live for themselves but for him who for their sake died and was raised.
+          </span>
+        </div>
+        <div class="btext">
+          <span class="pt">
+            <span class="vnum">16</span>Assim, de agora em diante, não consideramos ninguém segundo a carne; e ainda que tenhamos conhecido Cristo segundo a carne, agora já não o conhecemos assim. <span class="vnum">17</span>Portanto, se alguém está em Cristo, é nova criatura. As coisas antigas já passaram; eis que tudo se tornou novo!
+          </span>
+          <span class="en">
+            <span class="vnum">16</span>From now on, therefore, we regard no one according to the flesh. Even though we once regarded Christ according to the flesh, we regard him thus no longer. <span class="vnum">17</span>Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.
+          </span>
+        </div>
+        <div class="btext hl">
+          <span class="pt">
+            <span class="vnum">18</span>E tudo isto vem de Deus, que nos reconciliou consigo mesmo por meio de Cristo e nos deu o ministério da reconciliação: <span class="vnum">19</span>que Deus estava em Cristo reconciliando consigo o mundo, não imputando aos homens as suas transgressões, e nos confiou a palavra da reconciliação.
+          </span>
+          <span class="en">
+            <span class="vnum">18</span>All this is from God, who through Christ reconciled us to himself and gave us the ministry of reconciliation; <span class="vnum">19</span>that is, in Christ God was reconciling the world to himself, not counting their trespasses against them, and entrusting to us the message of reconciliation.
+          </span>
+        </div>
+        <div class="btext">
+          <span class="pt">
+            <span class="vnum">20</span>Somos, pois, embaixadores em nome de Cristo, como se Deus exortasse por nosso intermédio. Em nome de Cristo, rogamos: reconciliai-vos com Deus! <span class="vnum">21</span>Aquele que não conheceu pecado, ele o fez pecado por nós, para que nele nos tornássemos justiça de Deus.
+          </span>
+          <span class="en">
+            <span class="vnum">20</span>Therefore, we are ambassadors for Christ, God making his appeal through us. We implore you on behalf of Christ, be reconciled to God. <span class="vnum">21</span>For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God.
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 Cor explanation -->
+    <div class="exp-section">
+      <div class="exp-title">
+        <span class="pt">Entendendo 2 Coríntios 5:14–21</span>
+        <span class="en">Understanding 2 Corinthians 5:14–21</span>
+      </div>
+      <div class="exp-sub">
+        <span class="pt">O coração do evangelho: troca, nova criação, missão</span>
+        <span class="en">The heart of the gospel: exchange, new creation, mission</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag context"><span class="pt">Contexto</span><span class="en">Context</span></span>
+          <span><span class="pt">A Grande Troca</span><span class="en">The Great Exchange</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">Este é um dos textos mais densos e profundos do Novo Testamento. Paulo explica o mecanismo pelo qual a reconciliação acontece: a grande troca. Cristo — que não conheceu pecado — foi feito pecado por nós, para que nós pudéssemos nos tornar a justiça de Deus nEle. Nossa culpa foi para Ele; a Sua justiça veio para nós.</span>
+            <span class="en">This is one of the densest and most profound texts in the New Testament. Paul explains the mechanism by which reconciliation happens: the great exchange. Christ — who knew no sin — was made sin for us, so that we might become the righteousness of God in him. Our guilt went to him; his righteousness came to us.</span>
+          </p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Versículo 21 — A Grande Troca</span><span class="en">Verse 21 — The Great Exchange</span></div>
+          <p>
+            <span class="pt">Cristo não apenas morreu por nós — Ele se tornou pecado por nós. E nós não apenas somos perdoados — nos tornamos a própria justiça de Deus nEle. É uma troca completa e definitiva.</span>
+            <span class="en">Christ didn't merely die for us — he became sin for us. And we don't merely receive forgiveness — we become the very righteousness of God in him. It is a complete and definitive exchange.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag part2"><span class="pt">Versículo 17</span><span class="en">Verse 17</span></span>
+          <span><span class="pt">"Nova Criatura"</span><span class="en">"New Creation"</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">"Se alguém está em Cristo, é nova criatura." Esta não é uma melhoria do ser antigo — é uma criação inteiramente nova. Em grego, "nova criatura" (καινὴ κτίσις) usa o termo que descreve algo qualitativamente diferente, não apenas renovado. Isso é a transformação de que Paulo fala em 2 Tessalonicenses.</span>
+            <span class="en">"If anyone is in Christ, he is a new creation." This is not an improvement on the old self — it is an entirely new creation. In Greek, "new creation" (καινὴ κτίσις) uses the word describing something qualitatively different, not merely renewed. This is the transformation Paul speaks of in 2 Thessalonians.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag meaning"><span class="pt">Conexão</span><span class="en">Connection</span></span>
+          <span><span class="pt">Como os dois textos se unem</span><span class="en">How the two texts connect</span></span>
+        </div>
+        <div class="exp-body">
+          <p>
+            <span class="pt">2 Tessalonicenses 2:16–17 descreve as duas obras de Deus: conforto (reconciliação) e estabelecimento (transformação). 2 Coríntios 5:14–21 explica o fundamento dessas obras: a grande troca operada na cruz, que nos torna nova criação e nos dá o ministério da reconciliação.</span>
+            <span class="en">2 Thessalonians 2:16–17 describes God's two works: comfort (reconciliation) and establishing (transformation). 2 Corinthians 5:14–21 explains the foundation of these works: the great exchange accomplished on the cross, which makes us new creations and gives us the ministry of reconciliation.</span>
+          </p>
+          <p>
+            <span class="pt">Juntos, esses textos mostram que o evangelho nunca é apenas perdão — é uma nova vida completa, baseada não no nosso desempenho, mas na obra perfeita de Cristo.</span>
+            <span class="en">Together, these texts show that the gospel is never merely forgiveness — it is a complete new life, based not on our performance, but on the perfect work of Christ.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="back-wrap">
+      <button class="back-btn" onclick="showPage('devotional')">
+        ← <span class="pt">Voltar ao Devocional</span><span class="en">Back to Devotional</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    localStorage.setItem('dd-lang', lang);
+  }
+
+  const saved = localStorage.getItem('dd-lang');
+  if (saved) setLang(saved);
+</script>
+</body>
+</html>
