@@ -1,0 +1,510 @@
+cat > /mnt/user-data/outputs/may13_interactive.html << 'HTMLEOF'
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 13 · Daily Devotional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #0e0b07; --parchment: #f7f2e8; --warm: #f2ead8;
+  --gold: #b8860b; --gold-light: #d4a843; --gold-pale: #f0dfa0;
+  --rust: #7a2e1a; --sage: #3d5c35; --blue: #1a3a5c; --mid: #6b5a3e;
+  --border: #ddd3b8;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--parchment); font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,242,232,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #d8cdb0; padding: 0 20px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.nav-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; cursor: pointer; }
+.nav-logo-mark { width: 28px; height: 28px; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--gold); transform: rotate(45deg); flex-shrink: 0; transition: background 0.2s; }
+.nav-logo-mark:hover { background: rgba(184,134,11,0.08); }
+.nav-logo-mark span { transform: rotate(-45deg); display: block; }
+.nav-brand { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); transition: color 0.2s; }
+.nav-left:hover .nav-brand { color: var(--gold); }
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 10px; border: 1px solid transparent; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; white-space: nowrap; }
+.nav-tab.active, .nav-tab:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,134,11,0.06); }
+.lang-switch { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 5px 12px; border: 1px solid #c8b888; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; }
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
+.page { display: none; padding-top: 56px; min-height: 100vh; background: var(--parchment); }
+.page.active { display: block; }
+.lang-pt .en { display: none; }
+.lang-en .pt { display: none; }
+
+/* HERO */
+.hero { text-align: center; padding: 64px 24px 48px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,134,11,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-ornament { font-family: 'Cormorant Garamond', serif; font-size: 72px; color: rgba(184,134,11,0.15); line-height: 1; margin-bottom: -8px; letter-spacing: -2px; }
+.hero-label { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 7vw, 76px); font-weight: 300; color: var(--ink); letter-spacing: -1px; line-height: 1; margin-bottom: 24px; }
+.hero-line { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 22px; }
+.hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(16px, 2.2vw, 20px); font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* TEXT */
+.text-body { animation: fadeUp 0.7s 0.1s ease both; }
+.text-para { font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 2; color: var(--ink); margin-bottom: 22px; text-indent: 1.8em; }
+.text-para:first-child { text-indent: 0; }
+.text-para:last-child { margin-bottom: 0; }
+.scripture-block { background: var(--warm); border-left: 3px solid var(--gold); padding: 20px 26px; margin: 0 0 24px; border-radius: 0 3px 3px 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; line-height: 1.95; color: var(--mid); }
+.scripture-ref { font-family: 'Josefin Sans', sans-serif; font-style: normal; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-top: 12px; }
+.ref-footer { text-align: center; margin-top: 40px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #a89070; animation: fadeUp 0.7s 0.3s ease both; }
+
+/* DIAGRAM */
+.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; animation: fadeUp 0.7s 0.1s ease both; }
+.pillar { background: white; border: 1px solid var(--border); padding: 20px 14px; text-align: center; border-radius: 3px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.pillar:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.pillar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--gold); }
+.pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--gold-pale); line-height: 1; margin-bottom: 4px; }
+.pillar-title { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.pillar-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--mid); line-height: 1.4; }
+.central-box { background: var(--ink); padding: 36px 40px; margin-bottom: 40px; position: relative; animation: fadeUp 0.7s 0.2s ease both; }
+.central-box::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 120px; color: rgba(184,134,11,0.2); position: absolute; top: -10px; left: 20px; line-height: 1; pointer-events: none; }
+.box-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 14px; }
+.central-box p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; line-height: 1.7; color: #f0e8d0; position: relative; }
+.central-box strong { color: var(--gold-pale); font-weight: 600; }
+.section-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 20px; animation: fadeUp 0.7s 0.3s ease both; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 36px; animation: fadeUp 0.7s 0.35s ease both; }
+.c-card { border-radius: 3px; overflow: hidden; }
+.c-card-head { padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+.anxiety .c-card-head { background: var(--rust); }
+.hope .c-card-head { background: var(--sage); }
+.c-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.c-card-head-text { color: white; }
+.c-role { font-family: 'Josefin Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 2px; }
+.c-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; }
+.c-card-body { background: white; border: 1px solid var(--border); border-top: none; padding: 18px 20px; }
+.c-quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; line-height: 1.6; padding: 12px 14px; border-radius: 2px; margin-bottom: 14px; }
+.anxiety .c-quote { background: #fdf0ec; color: #5a1a08; border-left: 3px solid var(--rust); }
+.hope    .c-quote { background: #edf5ec; color: #1a3a18; border-left: 3px solid var(--sage); }
+.c-traits { list-style: none; }
+.c-traits li { font-size: 13.5px; padding: 5px 0 5px 20px; position: relative; color: var(--ink); border-bottom: 1px solid #f0e8d8; }
+.c-traits li:last-child { border-bottom: none; }
+.anxiety .c-traits li::before { content: '✗'; position: absolute; left: 0; color: var(--rust); font-size: 11px; top: 6px; }
+.hope    .c-traits li::before { content: '✓'; position: absolute; left: 0; color: var(--sage); font-size: 11px; top: 6px; }
+.c-verdict { margin-top: 14px; padding: 8px 14px; border-radius: 2px; font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; }
+.anxiety .c-verdict { background: #fde8e0; color: var(--rust); }
+.hope    .c-verdict { background: #e0f0e0; color: var(--sage); }
+.arrow-mid { text-align: center; margin: 4px 0 28px; animation: fadeUp 0.7s 0.4s ease both; }
+.arrow-mid span { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b0a080; display: block; margin-bottom: 4px; }
+.arrow-mid .arr { font-size: 20px; color: var(--gold); }
+.prayer-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; animation: fadeUp 0.7s 0.45s ease both; }
+.pt-card { padding: 22px 20px; border-radius: 3px; }
+.pt-card.my-future { background: #fdf5ee; border: 1px solid #d4956a; }
+.pt-card.gods-future { background: #eef4fd; border: 1px solid #5a80b0; }
+.pt-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.my-future   .pt-label { color: #a05020; }
+.gods-future .pt-label { color: var(--blue); }
+.pt-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.my-future   .pt-title { color: #6a2810; }
+.gods-future .pt-title { color: #102840; }
+.pt-items { font-size: 13.5px; line-height: 1.9; color: #444; }
+.grace-banner { background: linear-gradient(135deg, #c9922a 0%, #8a5a08 100%); padding: 32px 36px; border-radius: 3px; text-align: center; margin-bottom: 36px; animation: fadeUp 0.7s 0.5s ease both; }
+.grace-banner .gb-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.grace-banner p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: white; line-height: 1.7; }
+
+/* BIBLE */
+.passage-box { background: white; border: 1px solid var(--border); border-radius: 3px; margin-bottom: 40px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.passage-head { background: var(--warm); border-bottom: 1px solid var(--border); padding: 14px 28px; }
+.passage-head-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); }
+.passage-body { padding: 32px 36px; }
+.bible-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.9; color: var(--ink); margin-bottom: 18px; }
+.bible-text:last-child { margin-bottom: 0; }
+.verse-num { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; color: var(--gold); vertical-align: super; margin-right: 3px; }
+.direct-speech { font-style: italic; }
+.highlight-verse { background: linear-gradient(120deg, rgba(184,134,11,0.08), rgba(184,134,11,0.12)); border-left: 3px solid var(--gold); padding: 14px 18px; border-radius: 0 3px 3px 0; margin: 8px 0; }
+.explanation { margin-bottom: 40px; }
+.exp-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.exp-subtitle { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.exp-block { margin-bottom: 28px; }
+.exp-block-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.etag { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 2px; text-transform: uppercase; }
+.etag.context { background: #fff3cd; color: #7a5800; }
+.etag.future { background: #fde8e0; color: var(--rust); }
+.etag.inherit { background: #e0f0e0; color: var(--sage); }
+.etag.meaning { background: #e8eef8; color: var(--blue); }
+.etag.connect { background: #f0e8f8; color: #5c2a5c; }
+.exp-body { font-family: 'Crimson Pro', serif; font-size: 17px; line-height: 1.8; color: #333; }
+.exp-body p { margin-bottom: 14px; }
+.exp-body p:last-child { margin-bottom: 0; }
+.insight-box { background: var(--warm); border: 1px solid #d8c898; border-radius: 3px; padding: 20px 24px; margin: 20px 0; }
+.insight-box .i-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.insight-box p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--mid); line-height: 1.7; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.6s ease both; }
+@media (max-width: 600px) {
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .compare, .prayer-types { grid-template-columns: 1fr; }
+  .central-box { padding: 26px 22px; }
+  .passage-body { padding: 22px 20px; }
+  nav { padding: 0 12px; }
+  .nav-brand { display: none; }
+}
+</style>
+</head>
+<body class="lang-pt">
+
+<nav>
+  <div class="nav-left" onclick="window.location.href='index.html'">
+    <div class="nav-logo-mark"><span>&#10022;</span></div>
+    <span class="nav-brand">Daily Devotional</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('text')" id="tab-text">
+      <span class="pt">Texto</span><span class="en">Text</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('diagram')" id="tab-diagram">
+      <span class="pt">Diagrama</span><span class="en">Diagram</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('bible')" id="tab-bible">
+      <span class="pt">B&iacute;blia</span><span class="en">Bible</span>
+    </button>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('pt')">&#127463;&#127479; PT</button>
+    <button class="lang-btn" onclick="setLang('en')">&#127482;&#127480; EN</button>
+  </div>
+</nav>
+
+<!-- ══ PAGE 1: TEXT ══ -->
+<div id="page-text" class="page active">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Devocional &middot; 13 de Maio</span>
+      <span class="en">Devotional &middot; May 13</span>
+    </div>
+    <h1><span class="pt">Uma Her&ccedil;an&ccedil;a Eterna</span><span class="en">An Eternal Inheritance</span></h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">&ldquo;Voc&ecirc; n&atilde;o foi deixado para garantir o seu pr&oacute;prio futuro, porque Deus em gra&ccedil;a garantiu um fim para a sua hist&oacute;ria mais glorioso do que voc&ecirc; pode compreender.&rdquo;</span>
+      <span class="en">&ldquo;You have not been left to secure your own future, because God in grace has secured an end to your story more glorious than you can grasp.&rdquo;</span>
+    </p>
+  </div>
+  <div class="wrap">
+    <div class="text-body">
+      <p class="text-para">
+        <span class="pt">Voc&ecirc; e eu absolutamente precisamos que nossas vidas sejam moldadas e remodeladas por estas palavras:</span>
+        <span class="en">You and I absolutely need our lives to be shaped and reshaped by these words:</span>
+      </p>
+      <div class="scripture-block">
+        <span class="pt">&ldquo;Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo! Segundo a sua grande miseric&oacute;rdia, ele nos regenerou para uma esperan&ccedil;a viva, por meio da ressurrei&ccedil;&atilde;o de Jesus Cristo dentre os mortos, para uma heran&ccedil;a incorrupt&iacute;vel, sem m&aacute;cula e imarcesc&iacute;vel, reservada nos c&eacute;us para v&oacute;s, que sois guardados pelo poder de Deus, mediante a f&eacute;, para a salva&ccedil;&atilde;o que est&aacute; pronta para ser revelada no &uacute;ltimo tempo.&rdquo;</span>
+        <span class="en">&ldquo;Blessed be the God and Father of our Lord Jesus Christ! According to his great mercy, he has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead, to an inheritance that is imperishable, undefiled, and unfading, kept in heaven for you, who by God&rsquo;s power are being guarded through faith for a salvation ready to be revealed in the last time.&rdquo;</span>
+        <span class="scripture-ref">1 Pedro 1:3&ndash;5 &middot; 1 Peter 1:3&ndash;5</span>
+      </div>
+      <p class="text-para">
+        <span class="pt">Um dos medos humanos mais comuns &eacute; o medo do futuro. Todos n&oacute;s perguntamos: &ldquo;O que acontecer&aacute; se...?&rdquo; ou &ldquo;O que acontecer&aacute; a seguir?&rdquo; ou &ldquo;O que est&aacute; por vir?&rdquo; Embutida em tudo isso est&aacute; a esperan&ccedil;a de que seremos seguros e que as coisas dar&atilde;o certo no futuro. N&atilde;o &eacute; loucura se preocupar com o futuro. N&atilde;o &eacute; pecado se preocupar com o que est&aacute; por vir. N&atilde;o &eacute; errado planejar para o futuro. Na verdade, voc&ecirc; e eu devemos viver com o futuro em vista todo dia de nossas vidas. De certa forma, tudo o que pensamos, desejamos, decidimos, fazemos e dizemos deve ser moldado pelo que est&aacute; por vir. Mas h&aacute; uma enorme diferen&ccedil;a entre se preocupar com o que voc&ecirc; n&atilde;o tem poder de controlar e descansar no que Deus revelou sobre Seus planos futuros para voc&ecirc;.</span>
+        <span class="en">One of the most common human fears is fear of the future. We all ask, &ldquo;What will happen if&hellip;?&rdquo; or &ldquo;What will happen next?&rdquo; or &ldquo;What is down the road?&rdquo; Embedded in all of this is the hope that we will be secure and things will be all right in the future. It is not insane to wonder about the future. It is not a sin to be concerned about what is to come. It is not wrong to plan for the future. In fact, you and I should live with the future in view every day of our lives. In some ways, everything that we think, desire, decide, do, and say should be shaped by what is to come. But there is a huge difference between worrying about what you have no power over and resting in what God has revealed about his future plans for you.</span>
+      </p>
+      <p class="text-para">
+        <span class="pt">A paz e a esperan&ccedil;a nunca ser&atilde;o encontradas em seus esfor&ccedil;os para descobrir o futuro. A vontade secreta de Deus &eacute; chamada de vontade secreta precisamente porque &eacute; secreta! N&atilde;o, a esperan&ccedil;a real &eacute; encontrada em viver dentro das implica&ccedil;&otilde;es do que significa que Deus segura o seu futuro em Suas m&atilde;os s&aacute;bias, poderosas e graciosas. Pedro diz: &ldquo;Nunca se esque&ccedil;a de que Jesus comprou um futuro para voc&ecirc; que &eacute; melhor do que qualquer coisa que voc&ecirc; poderia ter sonhado ou planejado para si mesmo.&rdquo; Se voc&ecirc; se lembrar de que tem este futuro maravilhoso &agrave; sua frente, voc&ecirc; n&atilde;o viver&aacute; como se este momento fosse tudo o que voc&ecirc; tem, e ser&aacute; livre da ansiedade de temer que de alguma forma este momento passar&aacute; sem voc&ecirc;. Amo as palavras qualificativas que Pedro usa para descrever nossa heran&ccedil;a como filhos de Deus: &ldquo;incorrupt&iacute;vel, sem m&aacute;cula e imarcesc&iacute;vel.&rdquo; Juntas elas significam que esta heran&ccedil;a &eacute; protegida e intoc&aacute;vel; nada ser&aacute; permitido que a danifique de qualquer forma. &Eacute; absolutamente segura.</span>
+        <span class="en">Peace and hope are never to be found in your efforts to figure out the future. God&rsquo;s secret will is called his secret will precisely because it is secret! No, real hope is found in living inside the implications of what it means that God holds your future in his wise, powerful, and gracious hands. Peter says, &ldquo;Don&rsquo;t ever let yourself forget that Jesus has purchased a future for you that is better than anything you could have dreamed of or planned for yourself.&rdquo; If you remember that you have this wonderful future ahead of you, you won&rsquo;t live as if this moment is all you have and you will be free of the anxiety of fearing that somehow this moment will pass you by. I love the qualifying words that Peter uses to describe our inheritance as the children of God: &ldquo;imperishable, undefiled, and unfading.&rdquo; Together they mean that this inheritance is protected and untouchable; nothing will be allowed to happen that would damage it in any way. It is absolutely secure.</span>
+      </p>
+      <p class="text-para">
+        <span class="pt">Mas Pedro diz mais. Ele diz que n&atilde;o apenas Deus est&aacute; guardando a sua heran&ccedil;a, Ele est&aacute; guardando voc&ecirc;. Ele n&atilde;o est&aacute; apenas protegendo o que est&aacute; por vir, Ele est&aacute; protegendo voc&ecirc;, de modo que quando o que est&aacute; por vir chegar, voc&ecirc; estar&aacute; l&aacute; para receb&ecirc;-lo e desfruit&aacute;-lo para sempre e sempre. Ent&atilde;o lembre-se hoje de que n&atilde;o importa qu&atilde;o dif&iacute;cil seja a sua hist&oacute;ria aqui, agora mesmo, est&aacute; garantido para voc&ecirc; como filho de Deus que ela terminar&aacute; melhor do que qualquer coisa que voc&ecirc; possa imaginar agora, e essa gl&oacute;ria nunca ter&aacute; fim!</span>
+        <span class="en">But Peter says more. He says that not only is God keeping your inheritance, he&rsquo;s keeping you. He&rsquo;s not only protecting what is to come, he&rsquo;s protecting you, so that when what is to come has come, you will be there to receive it and enjoy it forever and ever. So remember today that no matter how hard your story is right here, right now, it is guaranteed for you as God&rsquo;s child that it will end better than anything you can now imagine, and that glory will never end!</span>
+      </p>
+    </div>
+    <p class="ref-footer">
+      <span class="pt">Para estudo e encorajamento adicional: 1 Tessalonicenses 4:13&ndash;5:11</span>
+      <span class="en">For further study and encouragement: 1 Thessalonians 4:13&ndash;5:11</span>
+    </p>
+  </div>
+</div>
+
+<!-- ══ PAGE 2: DIAGRAM ══ -->
+<div id="page-diagram" class="page">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Diagrama &middot; 13 de Maio</span>
+      <span class="en">Diagram &middot; May 13</span>
+    </div>
+    <h1><span class="pt">Uma Her&ccedil;an&ccedil;a Eterna</span><span class="en">An Eternal Inheritance</span></h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">&ldquo;Uma heran&ccedil;a incorrupt&iacute;vel, sem m&aacute;cula e imarcesc&iacute;vel, reservada nos c&eacute;us para v&oacute;s.&rdquo; &mdash; 1 Pedro 1:4</span>
+      <span class="en">&ldquo;An inheritance that is imperishable, undefiled, and unfading, kept in heaven for you.&rdquo; &mdash; 1 Peter 1:4</span>
+    </p>
+  </div>
+  <div class="wrap">
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title"><span class="pt">Incorrupt&iacute;vel</span><span class="en">Imperishable</span></div>
+        <div class="pillar-desc"><span class="pt">N&atilde;o se desgasta, n&atilde;o decai, n&atilde;o tem prazo de validade</span><span class="en">Does not decay, does not rot, has no expiration date</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title"><span class="pt">Sem M&aacute;cula</span><span class="en">Undefiled</span></div>
+        <div class="pillar-desc"><span class="pt">Pura, intocada pelo pecado e pela corrup&ccedil;&atilde;o deste mundo</span><span class="en">Pure, untouched by the sin and corruption of this world</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title"><span class="pt">Imarcesc&iacute;vel</span><span class="en">Unfading</span></div>
+        <div class="pillar-desc"><span class="pt">N&atilde;o murcha, n&atilde;o perde o brilho, n&atilde;o diminui com o tempo</span><span class="en">Does not wither, does not lose its glory, does not fade</span></div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title"><span class="pt">Guardada</span><span class="en">Kept</span></div>
+        <div class="pillar-desc"><span class="pt">Reservada nos c&eacute;us &mdash; Deus guarda a heran&ccedil;a e guarda voc&ecirc;</span><span class="en">Reserved in heaven &mdash; God keeps the inheritance and keeps you</span></div>
+      </div>
+    </div>
+
+    <div class="central-box">
+      <div class="box-label"><span class="pt">A Verdade Central</span><span class="en">The Central Truth</span></div>
+      <p>
+        <span class="pt">H&aacute; uma enorme diferen&ccedil;a entre <strong>se preocupar com o que voc&ecirc; n&atilde;o pode controlar</strong> e <strong>descansar no que Deus revelou</strong> sobre Seus planos futuros. Deus n&atilde;o est&aacute; apenas guardando a sua heran&ccedil;a &mdash; Ele est&aacute; guardando <strong>voc&ecirc;</strong>.</span>
+        <span class="en">There is a huge difference between <strong>worrying about what you have no power over</strong> and <strong>resting in what God has revealed</strong> about his future plans. God is not only keeping your inheritance &mdash; He is keeping <strong>you</strong>.</span>
+      </p>
+    </div>
+
+    <div class="section-label">
+      <span class="pt">Dois jeitos de encarar o futuro</span>
+      <span class="en">Two ways to face the future</span>
+    </div>
+
+    <div class="compare">
+      <div class="c-card anxiety">
+        <div class="c-card-head">
+          <div class="c-icon">&#128165;</div>
+          <div class="c-card-head-text">
+            <div class="c-role"><span class="pt">Sem descanso na promessa</span><span class="en">Without rest in the promise</span></div>
+            <div class="c-name"><span class="pt">Ansiedade do Futuro</span><span class="en">Future Anxiety</span></div>
+          </div>
+        </div>
+        <div class="c-card-body">
+          <div class="c-quote">
+            <span class="pt">&ldquo;O que acontecer&aacute; se...? Preciso garantir o meu pr&oacute;prio futuro.&rdquo;</span>
+            <span class="en">&ldquo;What will happen if&hellip;? I need to secure my own future.&rdquo;</span>
+          </div>
+          <ul class="c-traits">
+            <li><span class="pt">Vive como se este momento fosse tudo que tem</span><span class="en">Lives as if this moment is all he has</span></li>
+            <li><span class="pt">Teme que o momento passe sem ele</span><span class="en">Fears the moment will pass him by</span></li>
+            <li><span class="pt">Busca seguran&ccedil;a no que pode controlar</span><span class="en">Seeks security in what he can control</span></li>
+            <li><span class="pt">Esquece a heran&ccedil;a incorrupt&iacute;vel que j&aacute; possui</span><span class="en">Forgets the imperishable inheritance he already has</span></li>
+          </ul>
+          <div class="c-verdict">
+            <span class="pt">&#10007; Paz n&atilde;o &eacute; encontrada assim</span>
+            <span class="en">&#10007; Peace is not found this way</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-card hope">
+        <div class="c-card-head">
+          <div class="c-icon">&#9733;</div>
+          <div class="c-card-head-text">
+            <div class="c-role"><span class="pt">Descansando na promessa</span><span class="en">Resting in the promise</span></div>
+            <div class="c-name"><span class="pt">Esperan&ccedil;a Viva</span><span class="en">Living Hope</span></div>
+          </div>
+        </div>
+        <div class="c-card-body">
+          <div class="c-quote">
+            <span class="pt">&ldquo;Deus segura meu futuro em m&atilde;os s&aacute;bias, poderosas e graciosas. Minha hist&oacute;ria terminar&aacute; melhor do que posso imaginar.&rdquo;</span>
+            <span class="en">&ldquo;God holds my future in wise, powerful, and gracious hands. My story will end better than I can imagine.&rdquo;</span>
+          </div>
+          <ul class="c-traits">
+            <li><span class="pt">Lembra que Jesus comprou um futuro para ele</span><span class="en">Remembers that Jesus purchased a future for him</span></li>
+            <li><span class="pt">Livre da ansiedade de que o momento passar&aacute;</span><span class="en">Free from anxiety that the moment will pass him by</span></li>
+            <li><span class="pt">Descansa no que Deus revelou sobre o futuro</span><span class="en">Rests in what God has revealed about the future</span></li>
+            <li><span class="pt">Sabe que Deus guarda a heran&ccedil;a e a ele mesmo</span><span class="en">Knows God keeps the inheritance and him as well</span></li>
+          </ul>
+          <div class="c-verdict">
+            <span class="pt">&#10003; Essa gl&oacute;ria nunca ter&aacute; fim!</span>
+            <span class="en">&#10003; That glory will never end!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-mid">
+      <span><span class="pt">A promessa de Pedro muda como vivemos hoje</span><span class="en">Peter&rsquo;s promise changes how we live today</span></span>
+      <div class="arr">&#8595;</div>
+    </div>
+
+    <div class="prayer-types">
+      <div class="pt-card my-future">
+        <div class="pt-label"><span class="pt">Garantindo meu futuro</span><span class="en">Securing my own future</span></div>
+        <div class="pt-title"><span class="pt">&ldquo;E se tudo der errado?&rdquo;</span><span class="en">&ldquo;What if it all goes wrong?&rdquo;</span></div>
+        <div class="pt-items">
+          <span class="pt">Ansiedade constante<br>Vivo para garantir este momento<br>O futuro &eacute; incerto e amedronta<br>Busco seguran&ccedil;a em coisas que mudam<br>Esqueço a heran&ccedil;a eterna</span>
+          <span class="en">Constant anxiety<br>I live to secure this moment<br>The future is uncertain and frightening<br>I seek security in changing things<br>I forget the eternal inheritance</span>
+        </div>
+      </div>
+      <div class="pt-card gods-future">
+        <div class="pt-label"><span class="pt">Descansando no futuro de Deus</span><span class="en">Resting in God&rsquo;s future</span></div>
+        <div class="pt-title"><span class="pt">&ldquo;Minha hist&oacute;ria termina bem&rdquo;</span><span class="en">&ldquo;My story ends well&rdquo;</span></div>
+        <div class="pt-items">
+          <span class="pt">Paz que excede o entendimento<br>Vivo com o futuro eterno em vista<br>O futuro &eacute; seguro nas m&atilde;os de Deus<br>A heran&ccedil;a &eacute; incorrupt&iacute;vel e guardada<br>Essa gl&oacute;ria nunca ter&aacute; fim!</span>
+          <span class="en">Peace that passes understanding<br>I live with the eternal future in view<br>The future is secure in God&rsquo;s hands<br>The inheritance is imperishable and kept<br>That glory will never end!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grace-banner">
+      <div class="gb-label"><span class="pt">O Convite</span><span class="en">The Invitation</span></div>
+      <p>
+        <span class="pt">N&atilde;o importa qu&atilde;o dif&iacute;cil seja a sua hist&oacute;ria agora mesmo &mdash; est&aacute; garantido para voc&ecirc; como filho de Deus que ela terminar&aacute; melhor do que qualquer coisa que voc&ecirc; possa imaginar. E essa gl&oacute;ria nunca ter&aacute; fim!</span>
+        <span class="en">No matter how hard your story is right now &mdash; it is guaranteed for you as God&rsquo;s child that it will end better than anything you can now imagine. And that glory will never end!</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 3: BIBLE ══ -->
+<div id="page-bible" class="page">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Texto B&iacute;blico &middot; 13 de Maio</span>
+      <span class="en">Bible Text &middot; May 13</span>
+    </div>
+    <h1>
+      <span class="pt">1 Pedro 1 &middot; 1 Tess 4&ndash;5</span>
+      <span class="en">1 Peter 1 &middot; 1 Thess 4&ndash;5</span>
+    </h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">Uma heran&ccedil;a guardada nos c&eacute;us para voc&ecirc;</span>
+      <span class="en">An inheritance kept in heaven for you</span>
+    </p>
+  </div>
+  <div class="wrap">
+
+    <div class="passage-box fade-in">
+      <div class="passage-head">
+        <div class="passage-head-label">
+          <span class="pt">&#128214; 1 Pedro 1:3&ndash;5 (NVI)</span>
+          <span class="en">&#128214; 1 Peter 1:3&ndash;5 (ESV)</span>
+        </div>
+      </div>
+      <div class="passage-body">
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">3</span>Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo! Segundo a sua grande miseric&oacute;rdia, ele nos regenerou para uma esperan&ccedil;a viva, por meio da ressurrei&ccedil;&atilde;o de Jesus Cristo dentre os mortos,</span>
+          <span class="en"><span class="verse-num">3</span>Blessed be the God and Father of our Lord Jesus Christ! According to his great mercy, he has caused us to be born again to a living hope through the resurrection of Jesus Christ from the dead,</span>
+        </div>
+        <div class="bible-text highlight-verse">
+          <span class="pt"><span class="verse-num">4</span>para uma heran&ccedil;a incorrupt&iacute;vel, sem m&aacute;cula e imarcesc&iacute;vel, reservada nos c&eacute;us para v&oacute;s, <span class="verse-num">5</span>que sois guardados pelo poder de Deus, mediante a f&eacute;, para a salva&ccedil;&atilde;o que est&aacute; pronta para ser revelada no &uacute;ltimo tempo.</span>
+          <span class="en"><span class="verse-num">4</span>to an inheritance that is imperishable, undefiled, and unfading, kept in heaven for you, <span class="verse-num">5</span>who by God&rsquo;s power are being guarded through faith for a salvation ready to be revealed in the last time.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation fade-in">
+      <div class="exp-title">
+        <span class="pt">Entendendo 1 Pedro 1:3&ndash;5</span>
+        <span class="en">Understanding 1 Peter 1:3&ndash;5</span>
+      </div>
+      <div class="exp-subtitle">
+        <span class="pt">Uma heran&ccedil;a triplamente segura &mdash; e um herdeiro guardado</span>
+        <span class="en">A triply secure inheritance &mdash; and a guarded heir</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag context"><span class="pt">Contexto</span><span class="en">Context</span></span>
+          <span><span class="pt">Pedro escrevendo a crist&atilde;os perseguidos</span><span class="en">Peter writing to persecuted Christians</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">Pedro escreve esta carta a crist&atilde;os dispersos pelo Imp&eacute;rio Romano que enfrentavam persegui&ccedil;&atilde;o, sofrimento e incerteza. Sua resposta n&atilde;o &eacute; minimizar o sofrimento &mdash; &eacute; expandir a vis&atilde;o deles para al&eacute;m do presente. A ressurrei&ccedil;&atilde;o de Jesus n&atilde;o &eacute; apenas um evento hist&oacute;rico; &eacute; a garantia de uma heran&ccedil;a futura que nenhum sofrimento pode danificar.</span><span class="en">Peter writes this letter to Christians scattered throughout the Roman Empire who faced persecution, suffering, and uncertainty. His response is not to minimize the suffering &mdash; it is to expand their vision beyond the present. The resurrection of Jesus is not just a historical event; it is the guarantee of a future inheritance that no suffering can damage.</span></p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag inherit"><span class="pt">Vers&iacute;culo 4</span><span class="en">Verse 4</span></span>
+          <span><span class="pt">As tr&ecirc;s palavras que garantem tudo</span><span class="en">The three words that guarantee everything</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt"><strong>Incorrupt&iacute;vel</strong> (áphtharton): n&atilde;o sujeita &agrave; corrup&ccedil;&atilde;o ou decomposição. Tudo neste mundo apodrece &mdash; esta heran&ccedil;a n&atilde;o. <strong>Sem m&aacute;cula</strong> (amíanton): pura, sem contamina&ccedil;&atilde;o. N&atilde;o pode ser manchada pelo pecado ou pela injusti&ccedil;a. <strong>Imarcesc&iacute;vel</strong> (amáranton): n&atilde;o murcha como uma flor. A gl&oacute;ria desta heran&ccedil;a n&atilde;o diminui com o tempo &mdash; &eacute; eternamente fresca.</span><span class="en"><strong>Imperishable</strong> (áphtharton): not subject to corruption or decay. Everything in this world decays &mdash; this inheritance does not. <strong>Undefiled</strong> (amíanton): pure, without contamination. It cannot be stained by sin or injustice. <strong>Unfading</strong> (amáranton): does not wither like a flower. The glory of this inheritance does not diminish with time &mdash; it is eternally fresh.</span></p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Reservada nos c&eacute;us</span><span class="en">Kept in heaven</span></div>
+          <p><span class="pt">O verbo grego <em>tetereme</em> (&ldquo;reservada&rdquo;) est&aacute; no perfeito passivo &mdash; indica uma a&ccedil;&atilde;o completada no passado com resultados que persistem. A heran&ccedil;a foi guardada e <em>continua sendo guardada</em>. &Eacute; completamente segura.</span><span class="en">The Greek verb <em>tetereme</em> (&ldquo;kept&rdquo;) is in the perfect passive &mdash; indicating an action completed in the past with results that persist. The inheritance was kept and <em>continues to be kept</em>. It is completely secure.</span></p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag meaning"><span class="pt">Vers&iacute;culo 5</span><span class="en">Verse 5</span></span>
+          <span><span class="pt">&ldquo;Guardados pelo poder de Deus&rdquo;</span><span class="en">&ldquo;Guarded by God&rsquo;s power&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">Pedro adiciona uma garantia dupla: n&atilde;o apenas a heran&ccedil;a est&aacute; guardada &mdash; o herdeiro tamb&eacute;m est&aacute;. O verbo &ldquo;guardados&rdquo; (<em>phrouroumenous</em>) &eacute; um termo militar: significa uma guarda constante, como soldados protegendo uma cidade. O poder de Deus est&aacute; ativamente mantendo voc&ecirc; seguro at&eacute; que voc&ecirc; chegue &agrave; sua heran&ccedil;a.</span><span class="en">Peter adds a double guarantee: not only is the inheritance kept &mdash; the heir is too. The word &ldquo;guarded&rdquo; (<em>phrouroumenous</em>) is a military term: it means constant guard duty, like soldiers protecting a city. God&rsquo;s power is actively keeping you safe until you arrive at your inheritance.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="passage-box fade-in">
+      <div class="passage-head">
+        <div class="passage-head-label">
+          <span class="pt">&#128214; 1 Tessalonicenses 4:13&ndash;14 (NVI)</span>
+          <span class="en">&#128214; 1 Thessalonians 4:13&ndash;14 (ESV)</span>
+        </div>
+      </div>
+      <div class="passage-body">
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">13</span>N&atilde;o queremos, irm&atilde;os, que voc&ecirc;s sejam ignorantes acerca dos que j&aacute; morreram, para que n&atilde;o fiquem tristes como os demais, que n&atilde;o t&ecirc;m esperan&ccedil;a.</span>
+          <span class="en"><span class="verse-num">13</span>But we do not want you to be uninformed, brothers, about those who are asleep, that you may not grieve as others do who have no hope.</span>
+        </div>
+        <div class="bible-text highlight-verse">
+          <span class="pt"><span class="verse-num">14</span>Pois se cremos que Jesus morreu e ressuscitou, assim tamb&eacute;m cremos que Deus trar&aacute; com Jesus os que nele adormeceram.</span>
+          <span class="en"><span class="verse-num">14</span>For since we believe that Jesus died and rose again, even so, through Jesus, God will bring with him those who have fallen asleep.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation fade-in">
+      <div class="exp-title">
+        <span class="pt">Entendendo 1 Tessalonicenses 4:13&ndash;14</span>
+        <span class="en">Understanding 1 Thessalonians 4:13&ndash;14</span>
+      </div>
+      <div class="exp-subtitle">
+        <span class="pt">A diferen&ccedil;a que a ressurrei&ccedil;&atilde;o faz no luto e na esperan&ccedil;a</span>
+        <span class="en">The difference the resurrection makes to grief and hope</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag future"><span class="pt">Vers&iacute;culo 13</span><span class="en">Verse 13</span></span>
+          <span><span class="pt">&ldquo;Como os que n&atilde;o t&ecirc;m esperan&ccedil;a&rdquo;</span><span class="en">&ldquo;As others who have no hope&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">Paulo n&atilde;o proibe o luto &mdash; ele qualifica o luto. H&aacute; uma diferen&ccedil;a fundamental entre o luto de quem n&atilde;o tem esperan&ccedil;a e o luto de quem tem uma heran&ccedil;a incorrupt&iacute;vel guardada nos c&eacute;us. O futuro muda o presente. Saber onde a hist&oacute;ria termina muda como voc&ecirc; atravessa o meio dela.</span><span class="en">Paul does not forbid grief &mdash; he qualifies it. There is a fundamental difference between the grief of those who have no hope and the grief of those who have an imperishable inheritance kept in heaven. The future changes the present. Knowing where the story ends changes how you walk through the middle of it.</span></p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Conex&atilde;o com o devocional</span><span class="en">Connection to the devotional</span></div>
+          <p><span class="pt">O devocional diz: &ldquo;N&atilde;o importa qu&atilde;o dif&iacute;cil seja a sua hist&oacute;ria agora, est&aacute; garantido que ela terminar&aacute; melhor do que qualquer coisa que voc&ecirc; possa imaginar.&rdquo; 1 Tessalonicenses 4 &eacute; o fundamento desta garantia: a ressurrei&ccedil;&atilde;o de Jesus &eacute; a prova de que Deus cumpre Suas promessas sobre o futuro.</span><span class="en">The devotional says: &ldquo;No matter how hard your story is right now, it is guaranteed that it will end better than anything you can imagine.&rdquo; 1 Thessalonians 4 is the foundation of this guarantee: the resurrection of Jesus is the proof that God fulfills His promises about the future.</span></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    localStorage.setItem('dd-lang', lang);
+  }
+  const saved = localStorage.getItem('dd-lang');
+  if (saved) setLang(saved);
+</script>
+</body>
+</html>
+HTMLEOF
