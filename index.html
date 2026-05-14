@@ -534,7 +534,7 @@ footer {
 </section>
 
 <!-- DEVOTIONALS -->
-<div class="wrap">
+<div class="wrap" id="devotionals">
 
   <div class="sec-header reveal">
     <div>
@@ -545,91 +545,14 @@ footer {
         <span class="pt">Devocionais</span><span class="en">Devotionals</span>
       </h2>
     </div>
-    <div class="sec-count">
-      <span class="pt">3 publicados</span><span class="en">3 published</span>
-    </div>
+    <div class="sec-count" id="count-label"></div>
   </div>
 
-  <!-- FEATURED — May 1 (most recent) -->
-  <a class="featured reveal" href="may1_interactive.html">
-    <div class="feat-left">
-      <div>
-        <span class="feat-badge">
-          <span class="pt">✦ Mais Recente</span><span class="en">✦ Latest</span>
-        </span>
-        <div class="feat-date">
-          <span class="pt">1 de Maio</span><span class="en">May 1</span>
-        </div>
-        <p class="feat-quote">
-          <span class="pt">"Jesus te ordena que pegues a tua cruz e O sigas, e então Ele te dá a força para carregar o fardo."</span>
-          <span class="en">"Jesus commands you to take up your cross and follow him, and then he gives you the strength to carry the load."</span>
-        </p>
-      </div>
-      <div class="feat-cta">
-        <span class="pt">Ler devocional</span><span class="en">Read devotional</span>
-        <span>→</span>
-      </div>
-    </div>
-    <div class="feat-right">
-      <div class="feat-qmark">"</div>
-      <p class="feat-insight">
-        <span class="pt">Deus não promete realizar nossos sonhos. Ele promete algo mais profundo: reconciliação e transformação pela graça.</span>
-        <span class="en">God doesn't promise to fulfill our dreams. He promises something deeper: reconciliation and transformation by grace.</span>
-      </p>
-      <div class="feat-ref">2 Thess 2:16–17 · 2 Cor 5:14–21</div>
-      <div class="feat-tags">
-        <span class="ftag"><span class="pt">Graça</span><span class="en">Grace</span></span>
-        <span class="ftag"><span class="pt">Reconciliação</span><span class="en">Reconciliation</span></span>
-        <span class="ftag"><span class="pt">Transformação</span><span class="en">Transformation</span></span>
-        <span class="ftag">2 Cor 5</span>
-      </div>
-    </div>
-  </a>
+  <!-- Most recent devocional — built by JS -->
+  <div id="featured-container"></div>
 
-  <!-- GRID -->
-  <div class="grid">
-    <a class="card reveal" href="april30_interactive.html">
-      <div class="card-top"></div>
-      <div class="card-body">
-        <div class="card-month"><span class="pt">Abril</span><span class="en">April</span></div>
-        <div class="card-date">30</div>
-        <div class="card-rule"></div>
-        <p class="card-title">
-          <span class="pt">"A oração é abandonar a esperança na capacidade independente e crer que em Cristo você recebe tudo o que precisa."</span>
-          <span class="en">"Prayer is abandoning hope of independent capability and believing that in Christ you're given everything you need."</span>
-        </p>
-        <div class="card-foot">
-          <span class="card-ref">Luke 18:9–14</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-    </a>
-
-    <a class="card reveal" href="abril28_diagrama.html">
-      <div class="card-top"></div>
-      <div class="card-body">
-        <div class="card-month"><span class="pt">Abril</span><span class="en">April</span></div>
-        <div class="card-date">28</div>
-        <div class="card-rule"></div>
-        <p class="card-title">
-          <span class="pt">"O verdadeiro amor do seu coração será revelado pelo que você lamenta e pelo que você celebra."</span>
-          <span class="en">"The true love of your heart will be revealed by what you grieve and what you celebrate."</span>
-        </p>
-        <div class="card-foot">
-          <span class="card-ref">Col 1:2–14</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-    </a>
-
-    <div class="card-placeholder reveal">
-      <div class="ph-icon">✦</div>
-      <div class="ph-text">
-        <span class="pt">Próximo devocional em breve</span>
-        <span class="en">Next devotional coming soon</span>
-      </div>
-    </div>
-  </div>
+  <!-- Archive grid — built by JS -->
+  <div class="grid" id="grid-container"></div>
 
 </div>
 
@@ -675,6 +598,9 @@ footer {
 </footer>
 
 <script>
+  /* ─────────────────────────────────────────
+     Language
+  ───────────────────────────────────────── */
   function setLang(lang) {
     document.body.className = 'lang-' + lang;
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -683,19 +609,168 @@ footer {
     localStorage.setItem('dd-lang', lang);
   }
 
-  const saved = localStorage.getItem('dd-lang');
-  if (saved) setLang(saved);
+  /* ─────────────────────────────────────────
+     Scroll reveal
+  ───────────────────────────────────────── */
+  function initReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 90);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 90);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+  /* ─────────────────────────────────────────
+     Date helpers
+  ───────────────────────────────────────── */
+  const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                     'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const MONTHS_EN = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  function dateParts(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return {
+      day:      d.getDate(),
+      month_pt: MONTHS_PT[d.getMonth()],
+      month_en: MONTHS_EN[d.getMonth()],
+    };
+  }
+
+  /* ─────────────────────────────────────────
+     Build featured (most recent) card
+     Uses same two-column dark layout as original
+  ───────────────────────────────────────── */
+  function buildFeatured(d) {
+    const { day, month_pt, month_en } = dateParts(d.date);
+    const tags = (d.tags_pt || []).map((t, i) =>
+      `<span class="ftag"><span class="pt">${t}</span><span class="en">${(d.tags_en||[])[i]||t}</span></span>`
+    ).join('');
+
+    // insight_pt/en is optional — falls back to the main quote
+    const ins_pt = d.insight_pt || d.quote_pt;
+    const ins_en = d.insight_en || d.quote_en;
+
+    return `
+      <a class="featured reveal" href="${d.file}">
+        <div class="feat-left">
+          <div>
+            <span class="feat-badge">
+              <span class="pt">✦ Mais Recente</span>
+              <span class="en">✦ Latest</span>
+            </span>
+            <div class="feat-date">
+              <span class="pt">${day} de ${month_pt}</span>
+              <span class="en">${month_en} ${day}</span>
+            </div>
+            <p class="feat-quote">
+              <span class="pt">"${d.quote_pt}"</span>
+              <span class="en">"${d.quote_en}"</span>
+            </p>
+          </div>
+          <div class="feat-cta">
+            <span class="pt">Ler devocional</span>
+            <span class="en">Read devotional</span>
+            <span>→</span>
+          </div>
+        </div>
+        <div class="feat-right">
+          <div class="feat-qmark">"</div>
+          <p class="feat-insight">
+            <span class="pt">${ins_pt}</span>
+            <span class="en">${ins_en}</span>
+          </p>
+          <div class="feat-ref">${d.reference || ''}</div>
+          <div class="feat-tags">${tags}</div>
+        </div>
+      </a>`;
+  }
+
+  /* ─────────────────────────────────────────
+     Build archive card (same white card as original)
+  ───────────────────────────────────────── */
+  function buildCard(d) {
+    const { day, month_pt, month_en } = dateParts(d.date);
+    return `
+      <a class="card reveal" href="${d.file}">
+        <div class="card-top"></div>
+        <div class="card-body">
+          <div class="card-month">
+            <span class="pt">${month_pt}</span>
+            <span class="en">${month_en}</span>
+          </div>
+          <div class="card-date">${day}</div>
+          <div class="card-rule"></div>
+          <p class="card-title">
+            <span class="pt">"${d.quote_pt}"</span>
+            <span class="en">"${d.quote_en}"</span>
+          </p>
+          <div class="card-foot">
+            <span class="card-ref">${d.reference || ''}</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  /* ─────────────────────────────────────────
+     "Coming soon" placeholder card
+  ───────────────────────────────────────── */
+  function buildPlaceholder() {
+    return `
+      <div class="card-placeholder reveal">
+        <div class="ph-icon">✦</div>
+        <div class="ph-text">
+          <span class="pt">Próximo devocional em breve</span>
+          <span class="en">Next devotional coming soon</span>
+        </div>
+      </div>`;
+  }
+
+  /* ─────────────────────────────────────────
+     Fetch devotionals.json and render
+  ───────────────────────────────────────── */
+  async function load() {
+    let data;
+    try {
+      const res = await fetch('devotionals.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      data = await res.json();
+    } catch (err) {
+      document.getElementById('featured-container').innerHTML =
+        `<p style="color:var(--muted);font-style:italic;padding:2rem 0 1rem;">
+           Não foi possível carregar os devocionais.
+           Verifique se <code>devotionals.json</code> existe no repositório.
+         </p>`;
+      console.error('devotionals.json:', err);
+      return;
+    }
+
+    // Sort newest → oldest
+    data.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Count badge (bilingual, language class handles visibility)
+    document.getElementById('count-label').innerHTML =
+      `<span class="pt">${data.length} publicado${data.length !== 1 ? 's' : ''}</span>` +
+      `<span class="en">${data.length} published</span>`;
+
+    // Featured card = newest entry
+    document.getElementById('featured-container').innerHTML = buildFeatured(data[0]);
+
+    // Archive grid = everything after the first, plus placeholder
+    const archiveHTML = data.slice(1).map(buildCard).join('') + buildPlaceholder();
+    document.getElementById('grid-container').innerHTML = archiveHTML;
+
+    // Apply saved language preference, then start scroll-reveal
+    setLang(localStorage.getItem('dd-lang') || 'en');
+    initReveal();
+  }
+
+  load();
 </script>
 </body>
 </html>
