@@ -1,0 +1,44 @@
+[
+  {
+    "date": "2025-05-01",
+    "label_pt": "1 de Maio",
+    "label_en": "May 1",
+    "title_pt": "A Cruz & A Graça",
+    "title_en": "The Cross & The Grace",
+    "quote_pt": "Jesus te ordena que pegues a tua cruz e O sigas, e então Ele te dá a força para carregar o fardo.",
+    "quote_en": "Jesus commands you to take up your cross and follow him, and then he gives you the strength to carry the load.",
+    "tags_pt": ["Graça", "Reconciliação", "Transformação"],
+    "tags_en": ["Grace", "Reconciliation", "Transformation"],
+    "reference": "2 Cor 5",
+    "file": "may1_interactive.html",
+    "latest": true
+  },
+  {
+    "date": "2025-04-30",
+    "label_pt": "30 de Abril",
+    "label_en": "April 30",
+    "title_pt": "Oração & Dependência",
+    "title_en": "Prayer & Dependence",
+    "quote_pt": "A oração é abandonar a esperança na capacidade independente e crer que em Cristo você recebe tudo o que precisa.",
+    "quote_en": "Prayer is abandoning hope of independent capability and believing that in Christ you're given everything you need.",
+    "tags_pt": ["Oração", "Fé", "Humildade"],
+    "tags_en": ["Prayer", "Faith", "Humility"],
+    "reference": "Luke 18:9–14",
+    "file": "april30_interactive.html",
+    "latest": false
+  },
+  {
+    "date": "2025-04-28",
+    "label_pt": "28 de Abril",
+    "label_en": "April 28",
+    "title_pt": "Amor & Lamento",
+    "title_en": "Love & Grief",
+    "quote_pt": "O verdadeiro amor do seu coração será revelado pelo que você lamenta e pelo que você celebra.",
+    "quote_en": "The true love of your heart will be revealed by what you grieve and what you celebrate.",
+    "tags_pt": ["Amor", "Coração", "Caráter"],
+    "tags_en": ["Love", "Heart", "Character"],
+    "reference": "Col 1:2–14",
+    "file": "abril28_diagrama.html",
+    "latest": false
+  }
+]
