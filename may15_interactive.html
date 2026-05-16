@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>May 16 · Daily Devotional</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --ink: #0e0b07; --parchment: #f7f2e8; --warm: #f2ead8;
+  --gold: #b8860b; --gold-light: #d4a843; --gold-pale: #f0dfa0;
+  --rust: #7a2e1a; --sage: #3d5c35; --blue: #1a3a5c; --mid: #6b5a3e;
+  --border: #ddd3b8;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--parchment); font-family: 'Crimson Pro', Georgia, serif; color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(247,242,232,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #d8cdb0; padding: 0 20px; height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.nav-left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; cursor: pointer; }
+.nav-logo-mark { width: 28px; height: 28px; border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--gold); transform: rotate(45deg); flex-shrink: 0; transition: background 0.2s; }
+.nav-logo-mark:hover { background: rgba(184,134,11,0.08); }
+.nav-logo-mark span { transform: rotate(-45deg); display: block; }
+.nav-brand { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); transition: color 0.2s; }
+.nav-left:hover .nav-brand { color: var(--gold); }
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 10px; border: 1px solid transparent; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; white-space: nowrap; }
+.nav-tab.active, .nav-tab:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,134,11,0.06); }
+.lang-switch { display: flex; gap: 6px; flex-shrink: 0; }
+.lang-btn { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 5px 12px; border: 1px solid #c8b888; border-radius: 2px; cursor: pointer; background: transparent; color: var(--mid); transition: all 0.2s; }
+.lang-btn.active { background: var(--gold); border-color: var(--gold); color: white; }
+.page { display: none; padding-top: 56px; min-height: 100vh; background: var(--parchment); }
+.page.active { display: block; }
+.lang-pt .en { display: none; }
+.lang-en .pt { display: none; }
+
+/* HERO */
+.hero { text-align: center; padding: 64px 24px 48px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,134,11,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-ornament { font-family: 'Cormorant Garamond', serif; font-size: 72px; color: rgba(184,134,11,0.15); line-height: 1; margin-bottom: -8px; letter-spacing: -2px; }
+.hero-label { font-family: 'Josefin Sans', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 7vw, 76px); font-weight: 300; color: var(--ink); letter-spacing: -1px; line-height: 1; margin-bottom: 24px; }
+.hero-line { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 22px; }
+.hero-subtitle { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(16px, 2.2vw, 20px); font-weight: 300; color: var(--mid); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* TEXT — poem layout */
+.text-body { animation: fadeUp 0.7s 0.1s ease both; }
+.poem-tagline {
+  font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+  text-align: center; margin-bottom: 32px;
+}
+.poem-box {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  background: white; border: 1px solid var(--border); border-radius: 3px;
+  overflow: hidden; margin-bottom: 36px;
+}
+.poem-col { padding: 36px 32px; }
+.poem-col:first-child { border-right: 1px solid var(--border); }
+.poem-lang-label {
+  font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 24px; display: block;
+}
+.poem-text {
+  font-family: 'Cormorant Garamond', serif; font-size: 18px;
+  line-height: 1.85; color: var(--ink); font-style: italic;
+}
+.poem-text .stanza { margin-bottom: 20px; }
+.poem-text .stanza:last-child { margin-bottom: 0; }
+.ref-footer { text-align: center; margin-top: 40px; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: #a89070; }
+
+/* DIAGRAM */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 48px; animation: fadeUp 0.7s 0.1s ease both; }
+.pillar { background: white; border: 1px solid var(--border); padding: 22px 16px; text-align: center; border-radius: 3px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.pillar:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.pillar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; }
+.pillar.p1::after { background: var(--rust); }
+.pillar.p2::after { background: var(--blue); }
+.pillar.p3::after { background: var(--sage); }
+.pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; color: var(--gold-pale); line-height: 1; margin-bottom: 6px; }
+.pillar-title { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.pillar.p1 .pillar-title { color: var(--rust); }
+.pillar.p2 .pillar-title { color: var(--blue); }
+.pillar.p3 .pillar-title { color: var(--sage); }
+.pillar-word { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.pillar-answer { font-family: 'Josefin Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; color: #a89070; }
+.pillar-desc { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--mid); line-height: 1.4; }
+
+.central-box { background: var(--ink); padding: 36px 40px; margin-bottom: 40px; position: relative; animation: fadeUp 0.7s 0.2s ease both; }
+.central-box::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 120px; color: rgba(184,134,11,0.2); position: absolute; top: -10px; left: 20px; line-height: 1; pointer-events: none; }
+.box-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 14px; }
+.central-box p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; line-height: 1.7; color: #f0e8d0; position: relative; }
+.central-box strong { color: var(--gold-pale); font-weight: 600; }
+
+.section-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 20px; animation: fadeUp 0.7s 0.3s ease both; }
+
+/* Three gifts grid */
+.gifts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 36px; animation: fadeUp 0.7s 0.35s ease both; }
+.gift-card { border-radius: 3px; overflow: hidden; }
+.gift-head { padding: 14px 18px; }
+.gift-head.guilt   { background: var(--rust); }
+.gift-head.unable  { background: var(--blue); }
+.gift-head.foolish { background: var(--sage); }
+.gift-head-label { font-family: 'Josefin Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 4px; }
+.gift-head-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: white; }
+.gift-body { background: white; border: 1px solid var(--border); border-top: none; padding: 16px 18px; }
+.gift-problem { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: var(--mid); margin-bottom: 10px; border-bottom: 1px solid #f0e8d8; padding-bottom: 10px; }
+.gift-solution { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+.gift-solution .sol-label { font-family: 'Josefin Sans', sans-serif; font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 4px; }
+
+.arrow-mid { text-align: center; margin: 4px 0 28px; animation: fadeUp 0.7s 0.4s ease both; }
+.arrow-mid span { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #b0a080; display: block; margin-bottom: 4px; }
+.arrow-mid .arr { font-size: 20px; color: var(--gold); }
+
+.prayer-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; animation: fadeUp 0.7s 0.45s ease both; }
+.pt-card { padding: 22px 20px; border-radius: 3px; }
+.pt-card.brought-nothing { background: #fdf5ee; border: 1px solid #d4956a; }
+.pt-card.received-all    { background: #eef4fd; border: 1px solid #5a80b0; }
+.pt-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+.brought-nothing .pt-label { color: #a05020; }
+.received-all    .pt-label { color: var(--blue); }
+.pt-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.brought-nothing .pt-title { color: #6a2810; }
+.received-all    .pt-title { color: #102840; }
+.pt-items { font-size: 13.5px; line-height: 1.9; color: #444; }
+
+.grace-banner { background: linear-gradient(135deg, #c9922a 0%, #8a5a08 100%); padding: 32px 36px; border-radius: 3px; text-align: center; margin-bottom: 36px; animation: fadeUp 0.7s 0.5s ease both; }
+.grace-banner .gb-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+.grace-banner p { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: white; line-height: 1.7; }
+
+/* BIBLE */
+.passage-box { background: white; border: 1px solid var(--border); border-radius: 3px; margin-bottom: 40px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.passage-head { background: var(--warm); border-bottom: 1px solid var(--border); padding: 14px 28px; }
+.passage-head-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--mid); }
+.passage-body { padding: 32px 36px; }
+.bible-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; line-height: 1.9; color: var(--ink); margin-bottom: 18px; }
+.bible-text:last-child { margin-bottom: 0; }
+.verse-num { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; color: var(--gold); vertical-align: super; margin-right: 3px; }
+.highlight-verse { background: linear-gradient(120deg, rgba(184,134,11,0.08), rgba(184,134,11,0.12)); border-left: 3px solid var(--gold); padding: 14px 18px; border-radius: 0 3px 3px 0; margin: 8px 0; }
+.explanation { margin-bottom: 40px; }
+.exp-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.exp-subtitle { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.exp-block { margin-bottom: 28px; }
+.exp-block-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.etag { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 2px; text-transform: uppercase; }
+.etag.context  { background: #fff3cd; color: #7a5800; }
+.etag.cross    { background: #fde8e0; color: var(--rust); }
+.etag.spirit   { background: #e8eef8; color: var(--blue); }
+.etag.word     { background: #e0f0e0; color: var(--sage); }
+.etag.connect  { background: #f0e8f8; color: #5c2a5c; }
+.exp-body { font-family: 'Crimson Pro', serif; font-size: 17px; line-height: 1.8; color: #333; }
+.exp-body p { margin-bottom: 14px; }
+.exp-body p:last-child { margin-bottom: 0; }
+.insight-box { background: var(--warm); border: 1px solid #d8c898; border-radius: 3px; padding: 20px 24px; margin: 20px 0; }
+.insight-box .i-label { font-family: 'Josefin Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.insight-box p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; color: var(--mid); line-height: 1.7; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.6s ease both; }
+@media (max-width: 620px) {
+  .poem-box { grid-template-columns: 1fr; }
+  .poem-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .pillars, .gifts-grid { grid-template-columns: 1fr; }
+  .prayer-types { grid-template-columns: 1fr; }
+  .central-box { padding: 26px 22px; }
+  .passage-body { padding: 22px 20px; }
+  nav { padding: 0 12px; }
+  .nav-brand { display: none; }
+}
+</style>
+</head>
+<body class="lang-pt">
+
+<nav>
+  <div class="nav-left" onclick="window.location.href='index.html'">
+    <div class="nav-logo-mark"><span>&#10022;</span></div>
+    <span class="nav-brand">Daily Devotional</span>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('text')" id="tab-text">
+      <span class="pt">Texto</span><span class="en">Text</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('diagram')" id="tab-diagram">
+      <span class="pt">Diagrama</span><span class="en">Diagram</span>
+    </button>
+    <button class="nav-tab" onclick="showPage('bible')" id="tab-bible">
+      <span class="pt">B&iacute;blia</span><span class="en">Bible</span>
+    </button>
+  </div>
+  <div class="lang-switch">
+    <button class="lang-btn active" onclick="setLang('pt')">&#127463;&#127479; PT</button>
+    <button class="lang-btn" onclick="setLang('en')">&#127482;&#127480; EN</button>
+  </div>
+</nav>
+
+<!-- ══ PAGE 1: TEXT ══ -->
+<div id="page-text" class="page active">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Devocional &middot; 16 de Maio</span>
+      <span class="en">Devotional &middot; May 16</span>
+    </div>
+    <h1><span class="pt">A Mesa da Miseric&oacute;rdia</span><span class="en">The Table of Mercy</span></h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">&ldquo;Somos culpados. A cruz comprou o nosso perd&atilde;o. Somos incapazes. O Esp&iacute;rito nos d&aacute; poder. Somos tolos. A Palavra de Deus nos d&aacute; sabedoria.&rdquo;</span>
+      <span class="en">&ldquo;We are guilty. The cross purchased our forgiveness. We are unable. The Spirit gives us power. We are foolish. God&rsquo;s Word provides wisdom.&rdquo;</span>
+    </p>
+  </div>
+  <div class="wrap">
+    <div class="text-body">
+      <p class="poem-tagline">
+        <span class="pt">Uma medita&ccedil;&atilde;o po&eacute;tica sobre a gra&ccedil;a &middot; Portugu&ecirc;s &amp; Ingl&ecirc;s</span>
+        <span class="en">A poetic meditation on grace &middot; Portuguese &amp; English</span>
+      </p>
+      <div class="poem-box">
+        <div class="poem-col">
+          <span class="poem-lang-label">&#127463;&#127479; Portugu&ecirc;s</span>
+          <div class="poem-text">
+            <div class="stanza">
+              O que eu trouxe<br>
+              para a tua mesa da salva&ccedil;&atilde;o?<br>
+              Eu n&atilde;o tinha<br>
+              justi&ccedil;a alguma para oferecer,<br>
+              for&ccedil;a alguma para dar,<br>
+              sabedoria alguma para apresentar.
+            </div>
+            <div class="stanza">
+              N&atilde;o havia nada<br>
+              que eu pudesse trazer<br>
+              que me recomendasse<br>
+              a ti.
+            </div>
+            <div class="stanza">
+              Eu me arrastei, partido,<br>
+              at&eacute; a tua mesa,<br>
+              pesado e aleijado pelo<br>
+              meu pecado,<br>
+              minha culpa,<br>
+              minha fraqueza,<br>
+              minha tolice,<br>
+              meu orgulho,<br>
+              minha vergonha.
+            </div>
+            <div class="stanza">
+              Eu n&atilde;o tinha direito<br>
+              de estar contigo,<br>
+              mas tu me levantaste<br>
+              e me colocaste l&aacute;.
+            </div>
+            <div class="stanza">
+              Tu me alimentaste<br>
+              com os nutrientes vivificantes<br>
+              da gra&ccedil;a<br>
+              com as tuas m&atilde;os<br>
+              marcadas pelos pregos.<br>
+              E desde ent&atilde;o nunca mais deixei<br>
+              a tua mesa de miseric&oacute;rdia.
+            </div>
+          </div>
+        </div>
+        <div class="poem-col">
+          <span class="poem-lang-label">&#127482;&#127480; English</span>
+          <div class="poem-text">
+            <div class="stanza">
+              What did I bring<br>
+              to your salvation table?<br>
+              I had<br>
+              no righteousness to offer,<br>
+              no strength to give,<br>
+              no wisdom to present.
+            </div>
+            <div class="stanza">
+              There was<br>
+              nothing<br>
+              that I could deliver<br>
+              that would commend me<br>
+              to you.
+            </div>
+            <div class="stanza">
+              I crawled broken<br>
+              to your table,<br>
+              weighed down and crippled by<br>
+              my sin,<br>
+              my guilt,<br>
+              my weakness,<br>
+              my foolishness,<br>
+              my pride,<br>
+              my shame.
+            </div>
+            <div class="stanza">
+              I had no right<br>
+              to be with you,<br>
+              but you picked me up<br>
+              and placed me there.
+            </div>
+            <div class="stanza">
+              You fed me<br>
+              the life-giving nutrients<br>
+              of grace<br>
+              with your<br>
+              nail-scarred hands.<br>
+              And I haven&rsquo;t left your<br>
+              table of mercy since.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="ref-footer">
+      <span class="pt">Para estudo e encorajamento adicional: Romanos 8:18&ndash;30</span>
+      <span class="en">For further study and encouragement: Romans 8:18&ndash;30</span>
+    </p>
+  </div>
+</div>
+
+<!-- ══ PAGE 2: DIAGRAM ══ -->
+<div id="page-diagram" class="page">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Diagrama &middot; 16 de Maio</span>
+      <span class="en">Diagram &middot; May 16</span>
+    </div>
+    <h1><span class="pt">A Mesa da Miseric&oacute;rdia</span><span class="en">The Table of Mercy</span></h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">&ldquo;Eu me arrastei, partido, at&eacute; a tua mesa... e desde ent&atilde;o nunca mais deixei a tua mesa de miseric&oacute;rdia.&rdquo;</span>
+      <span class="en">&ldquo;I crawled broken to your table&hellip; and I haven&rsquo;t left your table of mercy since.&rdquo;</span>
+    </p>
+  </div>
+  <div class="wrap">
+
+    <!-- 3 pillars: what we brought -->
+    <div class="section-label" style="margin-bottom:16px;">
+      <span class="pt">O que trouxemos para a mesa &middot; e o que recebemos</span>
+      <span class="en">What we brought to the table &middot; and what we received</span>
+    </div>
+
+    <div class="gifts-grid">
+      <div class="gift-card">
+        <div class="gift-head guilt">
+          <div class="gift-head-label"><span class="pt">Nosso problema</span><span class="en">Our problem</span></div>
+          <div class="gift-head-title"><span class="pt">Somos Culpados</span><span class="en">We Are Guilty</span></div>
+        </div>
+        <div class="gift-body">
+          <div class="gift-problem"><span class="pt">Pecado, culpa, vergonha &mdash; nada que nos recomende</span><span class="en">Sin, guilt, shame &mdash; nothing that commends us</span></div>
+          <div class="gift-solution">
+            <span class="sol-label"><span class="pt">A resposta de Deus</span><span class="en">God&rsquo;s answer</span></span>
+            <span class="pt">A cruz comprou o nosso perd&atilde;o</span>
+            <span class="en">The cross purchased our forgiveness</span>
+          </div>
+        </div>
+      </div>
+      <div class="gift-card">
+        <div class="gift-head unable">
+          <div class="gift-head-label"><span class="pt">Nosso problema</span><span class="en">Our problem</span></div>
+          <div class="gift-head-title"><span class="pt">Somos Incapazes</span><span class="en">We Are Unable</span></div>
+        </div>
+        <div class="gift-body">
+          <div class="gift-problem"><span class="pt">Fraqueza, impot&ecirc;ncia &mdash; nenhuma for&ccedil;a para dar</span><span class="en">Weakness, powerlessness &mdash; no strength to give</span></div>
+          <div class="gift-solution">
+            <span class="sol-label"><span class="pt">A resposta de Deus</span><span class="en">God&rsquo;s answer</span></span>
+            <span class="pt">O Esp&iacute;rito nos d&aacute; poder</span>
+            <span class="en">The Spirit gives us power</span>
+          </div>
+        </div>
+      </div>
+      <div class="gift-card">
+        <div class="gift-head foolish">
+          <div class="gift-head-label"><span class="pt">Nosso problema</span><span class="en">Our problem</span></div>
+          <div class="gift-head-title"><span class="pt">Somos Tolos</span><span class="en">We Are Foolish</span></div>
+        </div>
+        <div class="gift-body">
+          <div class="gift-problem"><span class="pt">Tolice, orgulho &mdash; nenhuma sabedoria para apresentar</span><span class="en">Foolishness, pride &mdash; no wisdom to present</span></div>
+          <div class="gift-solution">
+            <span class="sol-label"><span class="pt">A resposta de Deus</span><span class="en">God&rsquo;s answer</span></span>
+            <span class="pt">A Palavra de Deus nos d&aacute; sabedoria</span>
+            <span class="en">God&rsquo;s Word provides wisdom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="central-box">
+      <div class="box-label"><span class="pt">A Verdade Central</span><span class="en">The Central Truth</span></div>
+      <p>
+        <span class="pt">Eu n&atilde;o tinha nada que me recomendasse a Ele. <strong>Mas Ele me levantou e me colocou &agrave; mesa.</strong> Me alimentou com os nutrientes vivificantes da gra&ccedil;a com Suas m&atilde;os marcadas pelos pregos. E desde ent&atilde;o nunca mais deixei a Sua mesa de miseric&oacute;rdia.</span>
+        <span class="en">I had nothing that would commend me to Him. <strong>But He picked me up and placed me there.</strong> He fed me the life-giving nutrients of grace with His nail-scarred hands. And I haven&rsquo;t left His table of mercy since.</span>
+      </p>
+    </div>
+
+    <div class="section-label">
+      <span class="pt">O que trouxemos &times; O que recebemos</span>
+      <span class="en">What we brought &times; What we received</span>
+    </div>
+
+    <div class="prayer-types">
+      <div class="pt-card brought-nothing">
+        <div class="pt-label"><span class="pt">O que trouxemos</span><span class="en">What we brought</span></div>
+        <div class="pt-title"><span class="pt">Nada que nos recomendasse</span><span class="en">Nothing to commend us</span></div>
+        <div class="pt-items">
+          <span class="pt">Nenhuma justi&ccedil;a para oferecer<br>Nenhuma for&ccedil;a para dar<br>Nenhuma sabedoria para apresentar<br>Pecado, culpa, fraqueza<br>Tolice, orgulho, vergonha<br>Nenhum direito de estar &agrave; mesa</span>
+          <span class="en">No righteousness to offer<br>No strength to give<br>No wisdom to present<br>Sin, guilt, weakness<br>Foolishness, pride, shame<br>No right to be at the table</span>
+        </div>
+      </div>
+      <div class="pt-card received-all">
+        <div class="pt-label"><span class="pt">O que recebemos</span><span class="en">What we received</span></div>
+        <div class="pt-title"><span class="pt">Tudo o que precisamos</span><span class="en">Everything we need</span></div>
+        <div class="pt-items">
+          <span class="pt">A cruz comprou nosso perd&atilde;o<br>O Esp&iacute;rito nos deu poder<br>A Palavra nos deu sabedoria<br>Ele nos levantou e colocou &agrave; mesa<br>Nutrientes vivificantes da gra&ccedil;a<br>A mesa de miseric&oacute;rdia &mdash; para sempre</span>
+          <span class="en">The cross purchased forgiveness<br>The Spirit gave us power<br>The Word gave us wisdom<br>He picked us up and placed us there<br>Life-giving nutrients of grace<br>The table of mercy &mdash; forever</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grace-banner">
+      <div class="gb-label"><span class="pt">O Convite</span><span class="en">The Invitation</span></div>
+      <p>
+        <span class="pt">Voc&ecirc; n&atilde;o precisava ter nada para se aproximar. Ele te levanta e te coloca &agrave; mesa. E as m&atilde;os marcadas pelos pregos te alimentam com tudo o que voc&ecirc; precisa.</span>
+        <span class="en">You didn&rsquo;t need to bring anything to approach. He picks you up and places you at the table. And the nail-scarred hands feed you with everything you need.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAGE 3: BIBLE ══ -->
+<div id="page-bible" class="page">
+  <div class="hero">
+    <div class="hero-ornament">&#10022;</div>
+    <div class="hero-label">
+      <span class="pt">Texto B&iacute;blico &middot; 16 de Maio</span>
+      <span class="en">Bible Text &middot; May 16</span>
+    </div>
+    <h1>
+      <span class="pt">Romanos 8:18&ndash;30</span>
+      <span class="en">Romans 8:18&ndash;30</span>
+    </h1>
+    <div class="hero-line"></div>
+    <p class="hero-subtitle">
+      <span class="pt">O Esp&iacute;rito nos ajuda em nossa fraqueza</span>
+      <span class="en">The Spirit helps us in our weakness</span>
+    </p>
+  </div>
+  <div class="wrap">
+
+    <div class="passage-box fade-in">
+      <div class="passage-head">
+        <div class="passage-head-label">
+          <span class="pt">&#128214; Romanos 8:18&ndash;28 (NVI)</span>
+          <span class="en">&#128214; Romans 8:18&ndash;28 (ESV)</span>
+        </div>
+      </div>
+      <div class="passage-body">
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">18</span>Pois considero que os sofrimentos do tempo presente n&atilde;o s&atilde;o dignos de compara&ccedil;&atilde;o com a gl&oacute;ria que h&aacute; de ser revelada em n&oacute;s.</span>
+          <span class="en"><span class="verse-num">18</span>For I consider that the sufferings of this present time are not worth comparing with the glory that is to be revealed to us.</span>
+        </div>
+        <div class="bible-text highlight-verse">
+          <span class="pt"><span class="verse-num">26</span>Da mesma forma, o Esp&iacute;rito nos ajuda em nossa fraqueza, pois n&atilde;o sabemos orar como conv&eacute;m, mas o pr&oacute;prio Esp&iacute;rito intercede por n&oacute;s com gem&idos inexprim&iacute;veis. <span class="verse-num">27</span>E aquele que sonda os cora&ccedil;&otilde;es sabe qual &eacute; a intenc&atilde;o do Esp&iacute;rito, porque ele intercede pelos santos de acordo com a vontade de Deus.</span>
+          <span class="en"><span class="verse-num">26</span>Likewise the Spirit helps us in our weakness. For we do not know what to pray for as we ought, but the Spirit himself intercedes for us with groanings too deep for words. <span class="verse-num">27</span>And he who searches hearts knows what is the mind of the Spirit, because the Spirit intercedes for the saints according to the will of God.</span>
+        </div>
+        <div class="bible-text">
+          <span class="pt"><span class="verse-num">28</span>Sabemos que Deus age em todas as coisas para o bem daqueles que o amam, dos que foram chamados de acordo com o seu prop&oacute;sito. <span class="verse-num">29</span>Pois aqueles que Deus conheceu de ant&atilde;o, tamb&eacute;m os predestinou para serem conformados &agrave; imagem de seu Filho, a fim de que ele fosse o prim&ocirc;genito entre muitos irm&atilde;os. <span class="verse-num">30</span>E aos que predestinou, a esses tamb&eacute;m chamou; aos que chamou, a esses tamb&eacute;m justificou; aos que justificou, a esses tamb&eacute;m glorificou.</span>
+          <span class="en"><span class="verse-num">28</span>And we know that for those who love God all things work together for good, for those who are called according to his purpose. <span class="verse-num">29</span>For those whom he foreknew he also predestined to be conformed to the image of his Son, in order that he might be the firstborn among many brothers. <span class="verse-num">30</span>And those whom he predestined he also called, and those whom he called he also justified, and those whom he justified he also glorified.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation fade-in">
+      <div class="exp-title">
+        <span class="pt">Entendendo Romanos 8:18&ndash;30</span>
+        <span class="en">Understanding Romans 8:18&ndash;30</span>
+      </div>
+      <div class="exp-subtitle">
+        <span class="pt">O Esp&iacute;rito supre onde somos incapazes &mdash; em tudo</span>
+        <span class="en">The Spirit supplies where we are unable &mdash; in everything</span>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag spirit"><span class="pt">Vers&iacute;culos 26&ndash;27</span><span class="en">Verses 26&ndash;27</span></span>
+          <span><span class="pt">&ldquo;O Esp&iacute;rito nos ajuda em nossa fraqueza&rdquo;</span><span class="en">&ldquo;The Spirit helps us in our weakness&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">O poema do devocional diz que cheg&aacute;mos &agrave; mesa &ldquo;sem for&ccedil;a alguma para dar.&rdquo; O dia de hoje &eacute; 16 de maio &mdash; o devocional responde: &ldquo;Somos incapazes. O Esp&iacute;rito nos d&aacute; poder.&rdquo; Romanos 8:26 &eacute; a prova: at&eacute; mesmo na nossa inca&shy;pacidade mais profunda &mdash; n&atilde;o saber nem como orar &mdash; o Esp&iacute;rito intercede por n&oacute;s com gem&idos que n&atilde;o conseguimos expressar.</span><span class="en">The devotional poem says we came to the table &ldquo;with no strength to give.&rdquo; The tagline of today answers: &ldquo;We are unable. The Spirit gives us power.&rdquo; Romans 8:26 is the proof: even in our deepest inability &mdash; not even knowing how to pray &mdash; the Spirit intercedes for us with groanings we cannot express.</span></p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Ponto-chave</span><span class="en">Key insight</span></div>
+          <p><span class="pt">Deus n&atilde;o apenas nos perdoa pela cruz &mdash; Ele nos capacita pelo Esp&iacute;rito. N&atilde;o precisamos de for&ccedil;a para nos aproximar; precisamos abrir m&atilde;o de nossa for&ccedil;a para que o Esp&iacute;rito opere em n&oacute;s.</span><span class="en">God does not only forgive us through the cross &mdash; He empowers us through the Spirit. We don&rsquo;t need strength to approach; we need to let go of our strength so the Spirit can work in us.</span></p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag cross"><span class="pt">Vers&iacute;culo 30</span><span class="en">Verse 30</span></span>
+          <span><span class="pt">&ldquo;A cadeia de ouro&rdquo;</span><span class="en">&ldquo;The golden chain&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">O vers&iacute;culo 30 &eacute; chamado pelos te&oacute;logos de &ldquo;a cadeia de ouro da salva&ccedil;&atilde;o&rdquo;: predestinados &rarr; chamados &rarr; justificados &rarr; glorificados. Cada elo &eacute; Deus agindo. N&atilde;o &eacute; uma escada que subimos &mdash; &eacute; uma cadeia em que Deus nos carrega. O poema captura isso perfeitamente: &ldquo;eu n&atilde;o tinha direito de estar contigo, mas tu me levantaste e me colocaste l&aacute;.&rdquo;</span><span class="en">Verse 30 is called by theologians &ldquo;the golden chain of salvation&rdquo;: predestined &rarr; called &rarr; justified &rarr; glorified. Every link is God acting. It is not a ladder we climb &mdash; it is a chain in which God carries us. The poem captures this perfectly: &ldquo;I had no right to be with you, but you picked me up and placed me there.&rdquo;</span></p>
+        </div>
+      </div>
+
+      <div class="exp-block">
+        <div class="exp-block-title">
+          <span class="etag word"><span class="pt">Vers&iacute;culo 28</span><span class="en">Verse 28</span></span>
+          <span><span class="pt">&ldquo;Deus age em todas as coisas para o bem&rdquo;</span><span class="en">&ldquo;All things work together for good&rdquo;</span></span>
+        </div>
+        <div class="exp-body">
+          <p><span class="pt">Esta &eacute; uma das promessas mais incompreendidas da B&iacute;blia. N&atilde;o diz que todas as coisas s&atilde;o boas &mdash; diz que Deus faz todas as coisas trabalharem juntas para o bem daqueles que o amam. A promessa &eacute; de soberania providencial, n&atilde;o de aus&ecirc;ncia de sofrimento. O &ldquo;bem&rdquo; em vista &eacute; definido no vers&iacute;culo 29: ser conformado &agrave; imagem de Cristo.</span><span class="en">This is one of the most misunderstood promises in the Bible. It does not say all things are good &mdash; it says God makes all things work together for good for those who love him. The promise is of providential sovereignty, not absence of suffering. The &ldquo;good&rdquo; in view is defined in verse 29: being conformed to the image of Christ.</span></p>
+        </div>
+        <div class="insight-box">
+          <div class="i-label"><span class="pt">Conex&atilde;o com o poema</span><span class="en">Connection to the poem</span></div>
+          <p><span class="pt">O poema termina: &ldquo;E desde ent&atilde;o nunca mais deixei a tua mesa de miseric&oacute;rdia.&rdquo; Romanos 8:28&ndash;30 garante por qu&ecirc;: porque Aquele que nos chamou tamb&eacute;m nos justificou e nos glorificar&aacute;. A mesa de miseric&oacute;rdia &eacute; eterna &mdash; e estamos seguros nela.</span><span class="en">The poem ends: &ldquo;And I haven&rsquo;t left your table of mercy since.&rdquo; Romans 8:28&ndash;30 guarantees why: because the One who called us also justified us and will glorify us. The table of mercy is eternal &mdash; and we are secure in it.</span></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('tab-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]').classList.add('active');
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    localStorage.setItem('dd-lang', lang);
+  }
+  const saved = localStorage.getItem('dd-lang');
+  if (saved) setLang(saved);
+</script>
+</body>
+</html>
